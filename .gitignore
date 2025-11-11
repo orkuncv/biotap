@@ -76,6 +76,7 @@ vendor
 /nbbuild
 /nbdist
 /nbproject/private
+/.claude
 
 ## OS specific files
 .DS_Store

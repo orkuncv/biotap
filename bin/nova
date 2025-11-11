@@ -1,0 +1,60 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Nova Theme - Vivid CLI Tool
+ *
+ * @author  Movve - https://movve.nl
+ * @package Nova/Vivid
+ * @since   1.0.0
+ */
+
+// Ensure we're running from the command line
+if ( php_sapi_name() !== 'cli' ) {
+	echo "This script must be run from the command line.\n";
+	exit( 1 );
+}
+
+// Set error reporting
+error_reporting( E_ALL );
+ini_set( 'display_errors', '1' );
+
+// Get the project root directory
+$projectRoot = dirname( __DIR__ );
+
+// Autoload command classes
+spl_autoload_register( function ( $class ) use ( $projectRoot ) {
+	// Load from bin/commands/ directory
+	$commandFile = $projectRoot . '/bin/commands/' . $class . '.php';
+	if ( file_exists( $commandFile ) ) {
+		require_once $commandFile;
+
+		return true;
+	}
+
+	// Load from bin/ directory
+	$binFile = $projectRoot . '/bin/' . $class . '.php';
+	if ( file_exists( $binFile ) ) {
+		require_once $binFile;
+
+		return true;
+	}
+
+	return false;
+} );
+
+// Load base classes
+require_once $projectRoot . '/bin/commands/AbstractCommand.php';
+require_once $projectRoot . '/bin/CommandRegistry.php';
+
+// Create the command registry
+$registry = new CommandRegistry();
+
+// Register commands
+$registry->register( new KickstartCommand() );
+$registry->register( new InstallCommand() );
+
+// You can easily add more commands here:
+// $registry->register( new YourCustomCommand() );
+
+// Run the CLI
+exit( $registry->run( $argv ) );

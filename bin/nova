@@ -1,60 +1,77 @@
 #!/usr/bin/env php
 <?php
+
 /**
  * Nova Theme - Vivid CLI Tool
  *
  * @author  Movve - https://movve.nl
- * @package Nova/Vivid
+ *
  * @since   1.0.0
  */
 
 // Ensure we're running from the command line
-if ( php_sapi_name() !== 'cli' ) {
-	echo "This script must be run from the command line.\n";
-	exit( 1 );
+if (php_sapi_name() !== 'cli') {
+    echo "This script must be run from the command line.\n";
+    exit(1);
 }
 
 // Set error reporting
-error_reporting( E_ALL );
-ini_set( 'display_errors', '1' );
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 // Get the project root directory
-$projectRoot = dirname( __DIR__ );
+$projectRoot = dirname(__DIR__);
+$commandName = null;
 
 // Autoload command classes
-spl_autoload_register( function ( $class ) use ( $projectRoot ) {
-	// Load from bin/commands/ directory
-	$commandFile = $projectRoot . '/bin/commands/' . $class . '.php';
-	if ( file_exists( $commandFile ) ) {
-		require_once $commandFile;
+spl_autoload_register(function ($class) use ($projectRoot) {
+    // Load from bin/commands/ directory
+    $commandFile = $projectRoot.'/bin/commands/'.$class.'.php';
+    if (file_exists($commandFile)) {
+        require_once $commandFile;
 
-		return true;
-	}
+        return true;
+    }
 
-	// Load from bin/ directory
-	$binFile = $projectRoot . '/bin/' . $class . '.php';
-	if ( file_exists( $binFile ) ) {
-		require_once $binFile;
+    // Load from bin/ directory
+    $binFile = $projectRoot.'/bin/'.$class.'.php';
+    if (file_exists($binFile)) {
+        require_once $binFile;
 
-		return true;
-	}
+        return true;
+    }
 
-	return false;
-} );
+    return false;
+});
+
+const COMMAND_REGISTRY = [
+    'install' => InstallCommand::class,
+    'kickstart' => KickstartCommand::class,
+];
+
+function early_output(string $message, string $type = 'info'): void
+{
+    $colors = [
+        'info' => "\033[0;37m", 'success' => "\033[0;32m", 'warning' => "\033[1;33m",
+        'error' => "\033[0;31m", 'reset' => "\033[0m",
+    ];
+    $color = $colors[$type] ?? $colors['info'];
+    echo $color.$message.$colors['reset'].PHP_EOL;
+}
 
 // Load base classes
-require_once $projectRoot . '/bin/commands/AbstractCommand.php';
-require_once $projectRoot . '/bin/CommandRegistry.php';
+require_once $projectRoot.'/bin/commands/AbstractCommand.php';
+require_once $projectRoot.'/bin/CommandRegistry.php';
 
 // Create the command registry
-$registry = new CommandRegistry();
+$registry = new CommandRegistry;
 
 // Register commands
-$registry->register( new KickstartCommand() );
-$registry->register( new InstallCommand() );
+$registry->register(new KickstartCommand);
+$registry->register(new InstallCommand);
 
 // You can easily add more commands here:
 // $registry->register( new YourCustomCommand() );
 
 // Run the CLI
-exit( $registry->run( $argv ) );
+exit($registry->run($argv));

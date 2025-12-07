@@ -1,0 +1,2186 @@
+/**
+ * Nova Custom admin panel pages CSS
+ *
+ * This stylesheet is used for the custom admin panel pages of the Nova theme.
+ * It includes styles for the topbar, sidebar, cards, forms, buttons, and other components.
+ * The styles are designed to be responsive and adapt to different screen sizes.
+ *
+ * @package Nova
+ * @since   1.0.0
+ * @author  Movve - https://movve.nl
+ */
+
+/* ==========================================================================
+   ROOT VARIABLES
+   ========================================================================== */
+
+:root {
+    /* Theme Colors */
+    --nova-theme-color: #0783be;
+    --nova-theme-color-light: #EEF0F5;
+    --nova-theme-color-dark: #066998;
+    --nova-theme-color-dark-2: #0056B3;
+    --nova-theme-color-dark-3: #004494;
+    --nova-theme-color-dark-4: #003366;
+    --nova-theme-color-dark-5: #002244;
+
+    --nova-white: #ffffff;
+    --nova-black: #000000;
+
+    /* Grey Scale */
+    --nova-grey: #6b7280;
+    --nova-grey-light: #d1d5db;
+    --nova-grey-light-2: #9ca3af;
+    --nova-grey-dark: #374151;
+    --nova-grey-dark-2: #1f2937;
+    --nova-grey-dark-3: #030712;
+
+    /* Borders & Shadows */
+    --nova-bg-opacity: 1;
+    --nova-shadow:0 1px 2px rgba(16, 24, 40, .1);
+    --nova-border: 1px solid #D1D5DB;
+    --nova-border-dark: 1px solid var(--nova-grey);
+    --nova-border-color: #ccc;
+    --nova-form-shadow: 0 1px 2px rgba(16, 24, 40, .1);
+    --nova-form-outline: 2px solid var(--nova-theme-color);
+    --nova-form-outline-offset: 2px;
+
+    /* Misc */
+    --nova-transition: .6s cubic-bezier(0.17, 0.76, 0.37, 1.02);
+
+    /* Spacing */
+    --nova-spacing-xs: 4px;
+    --nova-spacing-sm: 8px;
+    --nova-spacing-md: 16px;
+    --nova-spacing-lg: 24px;
+    --nova-spacing-xl: 32px;
+    --nova-spacing-2xl: 40px;
+    --nova-spacing-3xl: 48px;
+
+    /* Border Radius */
+    --nova-form-border-radius: 6px;
+    --nova-btn-radius: 8px;
+    --nova-card-radius: 8px;
+    --nova-table-radius: 8px;
+    --nova-notice-radius: 8px;
+
+    /* Fonts */
+    --nova-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --nova-font-size-base: 16px;
+
+    /* Form */
+    --nova-form-max-width: 720px;
+    --nova-form-min-height: 40px;
+
+    /* Card */
+    --nova-card-full: calc(100% - var(--nova-spacing-lg)); /* Adjusted for potential margin/padding */
+    --nova-card-half: calc(50% - var(--nova-spacing-lg)); /* Adjusted */
+}
+
+/* Apply box-sizing globally for easier layout management */
+*, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+
+/* ==========================================================================
+   GLOBAL & TYPOGRAPHY
+   ========================================================================== */
+
+body:has(.nova-inner) {
+    /*background: var(--nova-theme-color-light);*/
+    background: #f0f0f1;
+}
+
+.nova-topbar,
+.nova-inner {
+    font-family: var(--nova-font-family);
+}
+
+.nova-theme-settings-wrap,
+.nova-theme-translations-wrap,
+.nova-theme-cpt-wrap {
+    margin: 0 0 0 -4px; /* Keep original margin for desktop */
+    width: 100%; /* Ensure full width */
+}
+
+.nova-main {
+    width: calc(100% - 240px); /* Desktop width */
+    flex-grow: 1; /* Allow main content to grow */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* ==========================================================================
+   TOPBAR
+   ========================================================================== */
+
+
+.nova-header {
+    width: calc(100% + 20px);
+    height: 72px;
+    background-color: #1a136a;
+    margin-left: -1rem; /* Adjusted for left padding */
+    padding-left: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.nova-header .nova-header-inner {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 2rem;
+}
+
+.nova-header .nova-header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nova-header-button-links svg {
+    width: 4rem;
+    height: 4rem;
+    margin-right: var(--nova-spacing-sm);
+}
+
+.nova-topbar {
+    background: var(--nova-white);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .1);
+    position: sticky; /* Default position */
+    top: 32px;
+    margin-bottom: -50px;
+    margin-left: -1rem; /* Adjusted for left padding */
+    width: calc(100% + var(--nova-spacing-md) + 4px); /* Original width calculation */
+    z-index: 10; /* Ensure topbar is above other content */
+}
+
+.nova-topbar-inner {
+    display: flex;
+    height: 72px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--nova-spacing-xl);
+}
+
+.nova-topbar-inner h1 {
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--nova-grey-dark);
+    padding: 0;
+    margin: 0; /* Add margin reset */
+    white-space: nowrap; /* Prevent wrapping on small screens */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for long titles */
+}
+
+.nova-theme-sync-wrap {
+    /* Adjusted for left padding */
+    margin: 0 0 0 -4px;
+    width: 100%;
+}
+
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+.nova-sidebar {
+    max-width: 224px;
+    width: 100%;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    display: none!important;
+}
+
+.nova-sidebar-inner {
+    position: sticky;
+    top: var(--nova-spacing-3xl); /* Adjusted for topbar height */
+}
+
+.nova-sidebar-list ul {
+    margin-top: var(--nova-spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--nova-spacing-xs);
+    padding: 0; /* Reset default ul padding */
+    list-style: none; /* Reset default ul style */
+}
+
+.nova-sidebar-list li {
+    margin-bottom: 0;
+}
+
+.nova-sidebar-list li a {
+    display: flex;
+    align-items: center;
+    padding: var(--nova-spacing-sm) var(--nova-spacing-md);
+    margin-bottom: 0;
+    border-radius: var(--nova-notice-radius);
+    gap: var(--nova-spacing-xs);
+    font-family: var(--nova-font-family);
+    font-size: 13px;
+    line-height: 1.4em;
+    font-weight: 600;
+    transition: background var(--nova-transition);
+    text-decoration: none;
+    color: rgba(60, 67, 74, 0.56); /* vervanging van #3c434a90 */
+}
+
+.nova-sidebar-list li a:focus {
+    outline: 2px solid var(--nova-theme-color);
+    outline-offset: 1px;
+    border: none;
+    box-shadow: none; /* Override default WP focus */
+    background: rgba(60, 67, 74, 0.075);
+}
+
+.nova-sidebar-list li a:hover {
+    color: #3c434a;
+}
+
+.nova-sidebar-list li a:hover svg {
+    opacity: 1;
+}
+
+.nova-sidebar-list li a svg {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 1px;
+    opacity: 0.4;
+    flex-shrink: 0; /* Prevent icon shrinking */
+}
+
+.nova-sidebar-list li a.active {
+    background: rgba(60, 67, 74, 0.075); /* vervanging van #3c434a20 */
+    color: #3c434a;
+    cursor: default;
+    pointer-events: none;
+}
+
+.nova-sidebar-list li a.active svg {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   BASIC AUTH WRAP
+   ========================================================================== */
+
+.nova-theme-basic-auth-wrap {
+    margin: var(--nova-spacing-md);
+}
+
+/* ==========================================================================
+   CARD COMPONENTS
+   ========================================================================== */
+
+.nova-card {
+    padding: var(--nova-spacing-3xl);
+    margin-top: var(--nova-spacing-xl);
+    /* width: var(--nova-card-full); */ /* Let flexbox handle width within nova-main */
+    width: 100%; /* Take full width of parent */
+    background-color: rgba(255, 255, 255, var(--nova-bg-opacity));
+    border-radius: var(--nova-card-radius);
+    box-shadow: var(--nova-shadow);
+    /* box-sizing: border-box; */ /* Already applied globally */
+}
+
+.nova-card.no-card {
+    padding: var(--nova-spacing-sm) 0 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.nova-card.no-card .nova-card-footer {
+    margin-top: 0.5rem;
+}
+
+.nova-card-md {
+    max-width: calc(50% - 1rem); /* Limit max width */
+    padding: var(--nova-spacing-xl);
+    height: fit-content;
+}
+
+.nova-card-header h2,
+#nova-cpt-form h2#modal-title {
+    color: #1d2327;
+    font-size: 16px;
+    padding-bottom: var(--nova-spacing-xl);
+    margin: 0.25rem 0 var(--nova-spacing-xl);
+    font-weight: 400;
+}
+
+.nova-card-header h2 svg {
+    display: none;
+}
+
+.nova-card-header .tooltip {
+    position: absolute;
+    font-size: 12px;
+    top: -1rem;
+    right: 3.5rem;
+    width: 360px;
+    height: fit-content;
+    background-color: #3c434a;
+    color: #ffffffde;
+    padding: 8px 12px;
+    border-radius: var(--nova-card-radius);
+    box-shadow: var(--nova-shadow);
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+    pointer-events: none; /* Prevent interaction */
+}
+
+.nova-card-header:has( .tooltip + svg:hover) .tooltip {
+    opacity: 1;
+    pointer-events: auto; /* Allow interaction */
+}
+
+.nova-card-header .tooltip .tooltip-arrow {
+    position: absolute;
+    top: 18px;
+    right: -8px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 8px solid #3c434a;
+}
+
+.nova-card.no-card .nova-card-header h2 {
+    margin-top: 0;
+    padding: 0;
+    font-size: 1.5rem;
+}
+
+.nova-card-md:not(.no-card) .nova-card-header h2 {
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: -2rem;
+    margin-top: -0.5rem;
+    padding: 0 2rem 1.25rem;
+    border-bottom: 1px solid #eaecf0;
+    width: calc(100% + 4rem);
+    position: relative;
+}
+
+.nova-card-md:not(.no-card) .nova-card-header h2 {
+    display: flex;
+    align-items: center;
+}
+
+.nova-card-md:not(.no-card) .nova-card-header h2 > svg {
+    display: block;
+    position: absolute;
+    top: -2px;
+    right: 1.7rem;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.nova-header-button-links {
+    display: flex;
+    align-items: center;
+    gap: var(--nova-spacing-sm);
+}
+
+a.nova-header-tab-nova-field-group {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 40px;
+    margin-right: 8px;
+    padding: 8px 16px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0);
+    border-radius: 6px;
+    color: #98a2b3;
+    text-decoration: none;
+    gap: 6px;
+    font-size: 13px;
+}
+
+a.nova-header-tab-nova-field-group:hover,
+a.nova-header-tab-nova-field-group.nova-active {
+    background-color: #ffffff12;
+    color: #f9fafb;
+}
+
+a.nova-header-tab-nova-field-group .nova-icon,
+a.nova-header-tab-nova-field-group .nova-icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.nova-card-md:not(.no-card) .nova-card-header h2 > span svg {
+    display: block;
+    margin-right: 10px;
+    margin-left: -6px;
+    width: 1.25rem;
+    height: 1.25rem;
+    opacity: .5;
+}
+
+.nova-form-spacer-title {
+    color: #1d2327;
+    font-size: 1rem;
+    padding-bottom: var(--nova-spacing-md);
+    margin: 0 0 var(--nova-spacing-lg);
+    font-weight: 400;
+}
+
+.nova-card-body {
+    padding: var(--nova-spacing-sm) 0;
+}
+
+.nova-card-body.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nova-card-intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.nova-card-intro h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 2rem;
+    margin-bottom: 12px;
+    padding: 0;
+    color: #344054;
+    line-height: 1.6rem;
+}
+
+.nova-card-intro p {
+    margin: 0;
+    font-size: 13px;
+    color: #667085;
+    line-height: 1.2rem;
+}
+
+.nova-card-footer p {
+    margin: 0;
+    padding: var(--nova-spacing-sm) 0 0;
+    color: var(--nova-grey-light-2);
+    font-weight: 450;
+    font-size: 12px;
+    max-width: 560px;
+}
+
+.nova-card:has(.translation-file-selector),
+.nova-card:has(#add-new-cpt) {
+    position: relative; /* Keep for absolute positioning inside */
+}
+
+
+/* ==========================================================================
+   FORM STYLES
+   ========================================================================== */
+
+.nova-form-group {
+    margin-bottom: var(--nova-spacing-lg);
+}
+
+.nova-card-body.centered .nova-form-group {
+    width: 100%;
+}
+
+.nova-card-body.centered .nova-form-group.inline .nova-form-group {
+    width: 100%;
+}
+
+/* Because of the way the modal is built, we need to add this to the body */
+html body .modal-content:has(#nova-cpt-form) {
+    background-color: var(--nova-theme-color-light)!important;
+    padding: 24px;
+}
+
+html body .modal-content:has(#nova-cpt-form) .form-field label {
+    margin-bottom: 6px !important;
+    font-size: 13px;
+    font-weight: 500 !important;
+}
+
+html body .modal-content:has(#nova-cpt-form)  #modal-title {
+    font-weight: 600;
+    color: var(--nova-grey-dark);
+}
+
+html body .modal-content:has(#nova-cpt-form) #nova-cpt-form button[type="submit"] {
+    padding: 0 16px !important;
+    height: 40px !important;
+}
+
+html body .modal-content:has(#nova-cpt-form) .remove-custom-field {
+    background: transparent;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--nova-grey, #6b7280) !important;
+    border: none !important;
+    font-weight: normal;
+    padding: 5px;
+}
+
+html body .modal-content:has(#nova-cpt-form) #nova-add-custom-field {
+    background: transparent;
+    border-radius: 6px;
+    color: var(--nova-theme-color) !important;
+    border: 1px solid var(--nova-theme-color);
+    margin-bottom: 1rem;
+}
+
+.nova-form-group label {
+    display: block;
+    margin-bottom: var(--nova-spacing-sm);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--nova-grey-dark);
+}
+
+.nova-form-description {
+    display: block;
+    margin-top: 6px;
+    margin-bottom: var(--nova-spacing-sm);
+    font-size: 13px;
+    color: #667085;
+    font-style: italic;
+}
+
+.nova-form-group input[type="text"],
+.nova-form-group input[type="password"],
+.nova-form-group select, /* Add select styling */
+.nova-form-group textarea, /* Add textarea styling */
+.nova-rounded-table textarea,
+#nova-cpt-form input[type="text"]
+{
+    width: 100%;
+    max-width: var(--nova-form-max-width); /* Limit max width on larger screens */
+    min-height: var(--nova-form-min-height);
+    padding: var(--nova-spacing-xs) var(--nova-spacing-md);
+    border: var(--nova-border);
+    border-radius: var(--nova-form-border-radius);
+    box-shadow: var(--nova-form-shadow);
+    transition: border var(--nova-transition); /* Smooth transitions */
+    font-family: inherit; /* Ensure consistent font */
+    font-size: inherit; /* Ensure consistent font size */
+    background-color: #fff;
+}
+
+#nova-cpt-form input[type="text"] {
+    background: white;
+}
+
+#nova-cpt-form input[type="text"] + .description {
+    padding-top: 6px;
+    color: #667085;
+}
+
+#nova-cpt-form #modal-title {
+    letter-spacing: -0.5px!important;
+}
+
+#nova-cpt-form .form-field {
+    margin-bottom: 1.5rem!important;
+}
+
+#nova-cpt-form p.submit {
+    margin-bottom: -0.5rem!important;
+}
+
+/* Specific textarea height */
+.nova-form-group textarea,
+.nova-rounded-table textarea{
+    min-height: 120px; /* Adjust as needed */
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.nova-form-group input[type="text"]:hover,
+.nova-form-group input[type="password"]:hover,
+.nova-form-group select:hover,
+.nova-form-group textarea:hover,
+.nova-rounded-table textarea:hover,
+#nova-cpt-form input[type="text"]:hover {
+    border: var(--nova-border-dark);
+    /* transition: border var(--nova-transition); */ /* Handled in base style */
+}
+
+.nova-form-group input[type="text"]:focus,
+.nova-form-group input[type="password"]:focus,
+.nova-form-group select:focus,
+.nova-form-group textarea:focus,
+.nova-rounded-table textarea:focus,
+#nova-cpt-form input[type="text"]:focus {
+    outline: var(--nova-form-outline);
+    outline-offset: var(--nova-form-outline-offset);
+    border-color: var(--nova-theme-color); /* Make border match outline */
+}
+
+.nova-form-group input[type="checkbox"],
+#nova-cpt-form input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: var(--nova-spacing-lg);
+    height: var(--nova-spacing-lg);
+    margin-right: var(--nova-spacing-sm);
+    border-radius: calc(var(--nova-form-border-radius) / 1.5);
+    box-shadow: var(--nova-form-shadow);
+    border: var(--nova-border);
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: border var(--nova-transition);
+    margin-top: 0; /* Adjust vertical alignment */
+    flex-shrink: 0; /* Prevent shrinking in flex context */
+}
+
+.nova-form-group input[type="checkbox"]:hover,
+#nova-cpt-form input[type="checkbox"]:hover {
+    border: var(--nova-border-dark);
+}
+
+.nova-form-group:has(.nova-checkbox) label {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--nova-grey-dark);
+}
+
+.nova-form-group input[type="checkbox"]:focus,
+#nova-cpt-form input[type="checkbox"]:focus {
+    outline: var(--nova-form-outline);
+    outline-offset: var(--nova-form-outline-offset);
+}
+
+.nova-form-group input[type="checkbox"]:checked,
+#nova-cpt-form input[type="checkbox"]:checked {
+    background-color: var(--nova-theme-color);
+    border-color: var(--nova-theme-color);
+}
+
+.nova-form-group input[type="checkbox"]:checked::after,
+#nova-cpt-form input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%) rotate(45deg);
+    width: 5px;
+    height: 10px;
+    border: solid var(--nova-white);
+    border-width: 0 2px 2px 0;
+}
+
+.nova-form-group label.nova-checkbox-label {
+    display: flex; /* Changed to flex for better alignment */
+    flex-direction: column;
+    gap: var(--nova-spacing-sm);
+    width: fit-content;
+    margin-bottom: 0; /* Reset margin as it's handled by .nova-checkbox */
+}
+
+/* Container for checkbox + description */
+.nova-checkbox {
+    width: fit-content; /* Fit to content */
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--nova-spacing-md);
+    gap: var(--nova-spacing-xs); /* Add gap between checkbox and text block */
+}
+
+/* Block containing label and description */
+.nova-checkbox-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nova-spacing-xs); /* Space between label text and description */
+}
+
+/* The actual label text */
+.nova-checkbox-text .nova-checkbox-label-text {
+    font-weight: 550;
+    font-size: 13px;
+    color: var(--nova-grey-dark-3);
+    cursor: pointer; /* Make text clickable */
+}
+
+/* Description text */
+.nova-checkbox-description {
+    /* display: inline-flex; */ /* Not needed with flex column parent */
+    /* align-items: center; */
+    font-size: 12px;
+    font-weight: 400;
+    color: #667085;
+    line-height: 1.4; /* Improve readability */
+}
+
+
+.nova-dropzone {
+    border: 2px dashed var(--nova-theme-color);
+    border-radius: calc(var(--nova-form-border-radius) * 1.5); /* Adjusted radius */
+    background-color: var(--nova-white);
+    padding: var(--nova-spacing-xl); /* Increased padding */
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.3s, background-color 0.3s;
+    max-width: var(--nova-form-max-width);
+    /* box-sizing: border-box; */ /* Already global */
+    margin-top: var(--nova-spacing-sm);
+    margin-bottom: var(--nova-spacing-xl);
+}
+
+.nova-dropzone.has-image {
+    border: none;
+    padding: 0;
+    width: fit-content;
+    max-width: 100%; /* Ensure preview doesn't overflow */
+    margin-top: var(--nova-spacing-sm);
+    margin-bottom: var(--nova-spacing-md);
+}
+
+.nova-dropzone.has-image .nova-dropzone-support,
+.nova-dropzone.has-image .nova-dropzone-icon,
+.nova-dropzone.has-image .nova-dropzone-text,
+.nova-dropzone.has-image .nova-dropzone-button {
+    display: none;
+}
+
+.nova-dropzone-icon {
+    /* font-size: 1rem; */ /* Use SVG size */
+    color: var(--nova-theme-color);
+    margin-bottom: var(--nova-spacing-md);
+}
+
+.nova-dropzone-icon svg {
+    width: 32px;
+    height: 32px;
+    display: inline-block; /* Ensure proper rendering */
+}
+
+.nova-dropzone-text {
+    font-size: .9rem;
+    color: var(--nova-grey-dark-3);
+    margin-bottom: var(--nova-spacing-xs);
+}
+
+.nova-dropzone-text span {
+    font-weight: 700;
+    display: block; /* Make span take full line */
+    margin: var(--nova-spacing-sm) 0; /* Adjusted margin */
+}
+
+.nova-dropzone-button {
+    background-color: var(--nova-theme-color);
+    color: var(--nova-white);
+    border: none;
+    padding: var(--nova-spacing-sm) var(--nova-spacing-md);
+    border-radius: var(--nova-btn-radius);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: var(--nova-spacing-xs);
+    display: inline-block; /* Ensure it behaves like a button */
+    text-decoration: none; /* Remove underline if it's an anchor */
+}
+
+.nova-dropzone-button:hover {
+    background-color: var(--nova-theme-color-dark);
+}
+
+.nova-dropzone-support {
+    margin-top: var(--nova-spacing-md);
+    font-size: 12px;
+    color: var(--nova-grey);
+}
+
+.nova-dropzone.nova-dropzone-dragover {
+    background-color: var(--nova-theme-color-light);
+    border-color: var(--nova-theme-color-dark);
+}
+
+.nova-form-group-api {
+    display: flex;
+    width: 100%;
+    max-width: var(--nova-form-max-width); /* Limit width on desktop */
+    gap: var(--nova-spacing-sm); /* Add gap between elements */
+    align-items: flex-end; /* Align items to bottom */
+}
+
+.nova-form-group-api .nova-form-group {
+    width: 100%;
+    flex-grow: 1; /* Allow input field to take available space */
+    margin-bottom: 0; /* Reset margin as spacing is handled by flex gap */
+}
+
+.nova-upload-preview {
+    position: relative;
+    margin-top: var(--nova-spacing-sm); /* Add some space above preview */
+    width: fit-content; /* Fit to content size */
+    max-width: 100%; /* Prevent overflow */
+}
+
+.nova-upload-preview p { /* Assuming p wraps the img */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0;
+    margin: 0; /* Reset paragraph margin */
+}
+
+.nova-upload-preview img {
+    border: 1px solid var(--nova-border-color);
+    border-radius: var(--nova-form-border-radius);
+    box-shadow: var(--nova-form-shadow);
+    /* margin-top: -4px!important; */ /* Avoid important */
+    margin-top: 0;
+    max-width: 150px; /* Use max-width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove extra space below image */
+    background: #eef0f5;
+    padding: 1rem;
+}
+
+html body .nova-remove-file.button-secondary {
+    position: absolute;
+    top: -4px;
+    right: -12px; /* Position relative to image corner */
+    /* transform: translateX(-50%); */ /* Remove transform */
+    background: var(--nova-theme-color-dark-5);
+    color: var(--nova-white);
+    border-radius: 50%; /* Make it circular */
+    border: 2px solid var(--nova-white); /* Add border for visibility */
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--nova-transition);
+    /* Reset padding */
+    box-shadow: var(--nova-shadow); /* Add shadow */
+    line-height: 0;
+    padding-bottom: 2px;
+    font-size: 1.2rem; /* Adjust font size */
+    font-weight: 400; /* Adjust weight */
+}
+
+html body .nova-remove-file.button-secondary:hover {
+    background: var(--nova-theme-color);
+    color: white;
+}
+
+#nova-test-api-token {
+    /* max-height: 45px; */ /* Height is determined by content and padding */
+    /* width: calc(100% - 537px); */ /* Width handled by flex-grow in parent */
+    /* margin-top: 23px; */ /* Margin handled by parent alignment */
+    /* border-radius: 3px; */ /* Use variable */
+    border-radius: var(--nova-btn-radius);
+    flex-shrink: 0; /* Prevent button from shrinking */
+    height: var(--nova-form-min-height); /* Match input height */
+    align-self: flex-end; /* Ensure button aligns with bottom of input */
+    margin-bottom: 0; /* Align with input baseline */
+    padding-left: var(--nova-spacing-md); /* Add padding */
+    padding-right: var(--nova-spacing-md); /* Add padding */
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+/* General Button Styling */
+.nova-button, /* Add a general button class */
+.nova-card #submit,
+#nova-create-child-theme-btn,
+.nova-sticky-footer #submit,
+#add-new-cpt,
+.nova-theme-translations-wrap .nova-topbar-inner .button-primary,
+.nova-dropzone-button,
+#nova-cpt-form button[type="submit"],
+#nova-cpt-form .submit .close-modal,
+#nova-test-api-token, /* Include test button */
+input[type="submit"], /* Style default submit buttons */
+button {
+    height: 40px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: #0783be;
+    border-radius: 6px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(16, 24, 40, .2);
+    text-decoration: none;
+    color: #fff !important;
+    transition: all .2s ease-in-out;
+    transition-property: background, border, box-shadow;
+}
+
+.nova-button:hover,
+.nova-card #submit:hover,
+#nova-create-child-theme-btn:hover,
+.nova-sticky-footer #submit:hover,
+#add-new-cpt:hover,
+.nova-theme-translations-wrap .nova-topbar-inner .button-primary:hover,
+.nova-dropzone-button:hover,
+#nova-test-api-token:hover,
+input[type="submit"]:hover,
+#nova-cpt-form button[type="submit"]:hover,
+#nova-cpt-form .submit .close-modal:hover,
+button:hover {
+    background-color: #066998;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nova-button:active,
+.nova-card #submit:active,
+#nova-create-child-theme-btn:active,
+.nova-sticky-footer #submit:active,
+#add-new-cpt:active,
+.nova-theme-translations-wrap .nova-topbar-inner .button-primary:active,
+#nova-test-api-token:active,
+input[type="submit"]:active,
+#nova-cpt-form button[type="submit"]:active,
+#nova-cpt-form .submit .close-modal:active,
+button:active {
+    transform: scale(0.98); /* Add press effect */
+}
+
+#nova-cpt-form .submit .close-modal {
+    background-color: transparent;
+    color: var(--nova-theme-color) !important;
+    border: 1px solid var(--nova-theme-color);
+}
+
+#nova-cpt-form .submit .close-modal:hover {
+    background: transparent!important;
+    color: var(--nova-theme-color-dark)!important;
+    border: 1px solid var(--nova-theme-color-dark);
+}
+
+/* We need to override the default WordPress button styles */
+#nova-cpt-form .submit {
+    padding-bottom: 0!important;
+}
+
+/* Specific Button Overrides */
+.nova-card #submit.nova-button-large {
+    padding: 14px 24px; /* Larger padding */
+    border-radius: 14px; /* Larger radius */
+    min-height: 56px; /* Larger height */
+}
+
+html body #nova-log-search + a,
+html body #nova-log-search + a + form button[type="submit"],
+html body #nova-log-search + a + form + form button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding-right: 16px;
+    padding-left: 16px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 6px;
+    color: #03608c!important;
+    font-size: 13px;
+    border-color: #03608c;
+}
+
+html body #nova-log-search + a:hover,
+html body #nova-log-search + a + form button[type="submit"]:hover,
+html body #nova-log-search + a + form + form button[type="submit"]:hover {
+    color: var(--nova-theme-color) !important;
+    border-color: var(--nova-theme-color) !important;
+}
+
+.nova-sticky-footer #submit {
+    padding: 14px 32px; /* Specific padding for sticky footer */
+}
+
+.nova-theme-cpt-wrap .nova-topbar-inner,
+.nova-theme-translations-wrap .nova-topbar-inner {
+    justify-content: flex-start;
+}
+
+.nova-theme-translations-wrap .nova-topbar-inner .button-primary,
+.nova-theme-cpt-wrap .nova-topbar-inner #add-new-cpt {
+    margin-left: 16px;
+    height: 36px!important;
+    font-size: 13px!important;
+    padding-bottom: 1px;
+}
+
+/* Secondary button style */
+.nova-button.button-secondary {
+    background-color: var(--nova-grey-light);
+    color: var(--nova-grey-dark-2);
+}
+
+.nova-button.button-secondary:hover {
+    background-color: var(--nova-grey-light-2);
+    color: var(--nova-grey-dark-3);
+}
+
+.nova-theme-cpt-wrap .list-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3px; /* Space between buttons */
+    opacity: 0;
+    pointer-events: none; /* Disable pointer events */
+    transform: translateY(3px);
+}
+
+.nova-theme-cpt-wrap .list-actions .list-actions-divider {
+    opacity: .3;
+}
+
+.nova-theme-cpt-wrap tr:hover .list-actions {
+    opacity: 1; /* Show actions on hover */
+    pointer-events: auto; /* Enable pointer events */
+}
+
+.nova-theme-cpt-wrap .list-actions button,
+.nova-theme-cpt-wrap .list-actions [type="submit"] {
+    height: 24px!important;
+    min-height: 0!important;
+    background: transparent!important;
+    color: #0783be!important; /* Default color */
+    font-size: 13px!important;
+    padding: 0!important;
+    margin: 0!important;
+    font-weight: 400!important;
+    border: none!important;
+}
+
+.nova-theme-cpt-wrap .list-actions button:hover{
+    color: #044767!important; /* Default color */
+}
+
+.nova-theme-cpt-wrap .list-actions #submit[type="submit"] {
+    color: #a00!important; /* Default color */
+    transform: translateY(-2px);
+}
+
+.nova-theme-cpt-wrap .list-actions #submit[type="submit"]:hover {
+    color: red!important; /* Default color */
+}
+
+.nova-theme-cpt-wrap .list-actions button:hover,
+.nova-theme-cpt-wrap .list-actions [type="submit"]:hover {
+    text-decoration: none!important;
+}
+
+.nova-theme-cpt-wrap .displaying-num,
+.nova-theme-translations-wrap .displaying-num {
+    color: #667085;
+    margin-right: 16px !important;
+}
+
+
+/* ==========================================================================
+   SEARCH & LOGS
+   ========================================================================== */
+
+#nova-create-child-theme-btn {
+    display: inline-block; /* Changed from block */
+    width: auto; /* Fit content */
+    margin: var(--nova-spacing-xs) 0 var(--nova-spacing-md) 0; /* Adjust margin */
+}
+
+.nova-logs-actions {
+    margin-bottom: var(--nova-spacing-md);
+    display: flex; /* Use flex for alignment */
+    justify-content: flex-end; /* Align to right */
+    gap: var(--nova-spacing-sm);
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    position: relative;
+}
+
+#nova-log-search,
+#translation-search-input {
+    box-sizing: border-box;
+    height: 40px;
+    padding-right: 12px;
+    padding-left: 12px;
+    background-color: #fff;
+    border-color: #d0d5dd;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+    border-radius: 6px;
+    color: #344054;
+    min-width: 280px;
+    position: absolute;
+    left: 0;
+    transition: border var(--nova-transition); /* Smooth transitions */
+}
+
+#translation-search-input {
+    max-width: 280px;
+    position: relative;
+}
+
+#nova-log-search:focus,
+#translation-search-input:focus {
+    outline: var(--nova-form-outline);
+    outline-offset: var(--nova-form-outline-offset);
+    border-color: var(--nova-theme-color);
+}
+
+#nova-log-search:hover,
+#translation-search-input:hover {
+    border-color: var(--nova-border-dark);
+}
+
+.nova-logs-table-wrap table {
+    width: 100%; /* Table takes full width of wrapper */
+    min-width: 600px; /* Set a min-width to encourage scrolling */
+    border-collapse: collapse;
+    background-color: var(--nova-white);
+}
+
+.nova-logs-table-wrap table th,
+.nova-logs-table-wrap table td {
+    padding: var(--nova-spacing-sm) var(--nova-spacing-md); /* Adjusted padding */
+    text-align: left; /* Ensure left alignment */
+    border-bottom: var(--nova-border); /* Add bottom border to rows */
+    font-size: 13px; /* Consistent font size */
+    vertical-align: middle; /* Align vertically */
+}
+
+.nova-logs-table-wrap table th {
+    height: 35px; /* Set header height */
+    font-weight: 400; /* Header font weight */
+    white-space: nowrap; /* Prevent header text wrapping */
+}
+
+.nova-logs-table-wrap tr:last-child td {
+    border-bottom: none; /* Remove border from last row */
+}
+
+.nova-logs-table-wrap table th:first-child {
+    padding-left: 1.5rem; /* Add left padding for first column */
+}
+
+.nova-logs-table-wrap table td:first-child {
+    padding-left: 1.5rem; /* Add left padding for first column */
+    font-weight: 600; /* Make first column bold */
+}
+
+.nova-logs-table-wrap table td {
+    height: 60px!important; /* Set header height */
+    vertical-align: top; /* Align vertically */
+    color: #2271b1; /* Default color */
+}
+
+/* Remove fixed widths, let content decide or use min-width on columns if needed */
+/*
+.nova-logs-table-wrap table th:first-child { width: 50px; }
+.nova-logs-table-wrap table th:nth-of-type(2),
+.nova-logs-table-wrap table th:nth-of-type(3),
+.nova-logs-table-wrap table th:nth-of-type(4) { width: 150px; }
+*/
+
+/* Optional: Add min-width to columns if specific widths are crucial */
+.nova-logs-table-wrap table th:nth-of-type(1), /* Example: Checkbox/ID column */
+.nova-logs-table-wrap table td:nth-of-type(1) {
+    min-width: 160px;
+    width: 160px; /* Fixed width if needed */
+    white-space: nowrap;
+}
+
+.nova-logs-table-wrap table th:nth-of-type(2), /* Example: Date column */
+.nova-logs-table-wrap table td:nth-of-type(2) {
+    width: 160px;
+    white-space: nowrap;
+}
+
+.nova-logs-table-wrap table th:nth-of-type(3), /* Example: Date column */
+.nova-logs-table-wrap table td:nth-of-type(3) {
+    width: 160px;
+    white-space: nowrap;
+}
+
+.nova-logs-table-wrap table th:nth-of-type(4), /* Example: Date column */
+.nova-logs-table-wrap table td:nth-of-type(4) {
+    width: 220px;
+    white-space: nowrap;
+}
+
+.nova-theme-cpt-wrap table th:nth-of-type(5),
+.nova-theme-cpt-wrap table td:nth-of-type(5){
+    width: 320px;
+    white-space: nowrap;
+}
+
+.nova-theme-cpt-wrap table th,
+.nova-theme-cpt-wrap table td {
+    padding: var(--nova-spacing-sm) var(--nova-spacing-md);
+    text-align: left;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.nova-theme-cpt-wrap table th {
+    font-weight: 400; /* Header font weight */
+    white-space: nowrap; /* Prevent header text wrapping */
+    min-height: 36px!important; /* Ensure header height */
+}
+
+.nova-theme-cpt-wrap table th:nth-of-type(1) {
+    padding-left: 1.5rem;
+}
+
+.nova-theme-cpt-wrap table td {
+    vertical-align: top; /* Align vertically */
+    min-height: 60px;
+    color: #2271b1; /* Default color */
+}
+
+.nova-theme-cpt-wrap table td:nth-of-type(1) {
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 1.5rem;
+}
+
+.nova-rounded-table table tr:hover td {
+    background-color: var(--nova-theme-color-light);
+}
+
+.nova-theme-cpt-wrap .nova-card .wrap,
+.wrap.nova-theme-logs-wrap {
+    margin: 0;
+}
+
+.wrap.nova-theme-logs-wrap {
+    margin-top: -0.5rem;
+}
+
+.nova-theme-cpt-wrap .nova-card .wrap p + h2 + p {
+    margin-top: var(--nova-spacing-2xl); /* Adjust spacing */
+    font-weight: bold;
+    color: var(--nova-grey);
+}
+
+/* ==========================================================================
+   SETTINGS & NOTICES
+   ========================================================================== */
+
+body:has(.nova-inner) .notice {
+    display: none!important;
+}
+
+body:has(.nova-inner) #nova-settings-message .notice {
+    display: flex!important;
+}
+
+#nova-settings-message {
+    margin-top: 0;
+    /* width: calc(100% - var(--nova-spacing-lg)); */ /* Width determined by container */
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--nova-spacing-md); /* Space between messages */
+}
+
+#nova-settings-message .notice {
+    padding: var(--nova-spacing-md); /* Consistent padding */
+    margin: 0; /* Adjusted margin */
+    display: flex;
+    flex-direction: row; /* Align icon/dismiss horizontally */
+    align-items: flex-start; /* Align items to top */
+    --tw-border-opacity: 1;
+    --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    /* --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color); */
+    background: var(--nova-white);
+    border-width: 1px; /* Use left border for emphasis */
+    border-color: var(--nova-grey-light); /* Default border color */
+    border-radius: var(--nova-notice-radius);
+    /* border-width: 1px; */ /* Remove general border width */
+    box-shadow: var(--tw-shadow);
+    position: relative; /* For dismiss button */
+}
+
+#nova-settings-message .notice p {
+    /* padding-right: 50px; */ /* Handled by dismiss button positioning */
+    padding: 0; /* Reset padding */
+    margin: 0; /* Reset margin */
+    color: var(--nova-grey-dark-2); /* Adjusted color */
+    font-size: 13px; /* Consistent size */
+    line-height: 1.5; /* Improve readability */
+    flex-grow: 1; /* Allow text to take available space */
+}
+
+#nova-settings-message .notice.nova-redis {
+    flex-direction: column;
+}
+
+#nova-settings-message .notice.nova-redis pre {
+    background: #1d2327;
+    padding: 12px 16px;
+    border: 1px solid #eef0f6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #eef0f6;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 20px;
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+#nova-settings-message .notice.nova-redis div {
+    line-height: 20px;
+}
+
+#nova-settings-message .notice.nova-redis div > .caption {
+    margin-bottom: -12px;
+    display: block;
+}
+
+#nova-settings-message .notice.nova-redis .button-primary {
+    margin-top: .75rem;
+}
+
+#nova-settings-message .notice p b,
+#nova-settings-message .notice p strong {
+    color: var(--nova-grey-dark-3); /* Adjusted color */
+    font-weight: 600; /* Adjusted weight */
+    display: block;
+    margin-bottom: 4px; /* Space below title */
+}
+
+#nova-settings-message .notice.updated,
+#nova-settings-message .notice-updated,
+#nova-settings-message .notice-success { /* Add success class */
+    background-color: #f0f9eb;
+    border-color: #00a32a; /* Success color */
+    color: #1d2327;
+}
+
+#nova-settings-message .notice.info,
+#nova-settings-message .notice-info {
+    background-color: #e8f4fd;
+    border-color: #0d6efd; /* Info color */
+    color: #1d2327;
+}
+
+#nova-settings-message .notice.error,
+#nova-settings-message .notice-error {
+    background-color: #fde8e8;
+    border-color: #d32f2f; /* Error color */
+    color: #1d2327;
+}
+
+#nova-settings-message .notice-warning {
+    background-color: #fff8e1;
+    border-color: #dba617; /* Warning color */
+    color: #1d2327;
+}
+
+#nova-settings-message .notice code {
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+#nova-settings-message .notice-warning code {
+    background-color: rgba(219, 166, 23, 0.25);
+}
+
+#nova-settings-message .notice-success code {
+    background-color: rgba(0, 163, 42, 0.15);
+}
+
+#nova-settings-message .notice-info code {
+    background-color: rgba(13, 110, 253, 0.15);
+}
+
+#nova-settings-message .notice-error code {
+    background-color: rgba(211, 47, 47, 0.15);
+}
+
+#nova-settings-message .notice-dismiss {
+    position: absolute; /* Position relative to notice */
+    top: 1.175rem; /* Adjusted for spacing */
+    right: 1.375rem; /* Adjusted for spacing */
+    border-radius: 50%; /* Make dismiss circular */
+    width: 0;
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+}
+
+#nova-settings-message .notice-dismiss:before {
+    content: "×"; /* WordPress dashicon for close */
+    font-family: 'sans-serif';
+    font-size: 18px;
+    vertical-align: middle;
+    position: absolute;
+    font-weight: normal;
+}
+
+#nova-settings-message .notice-dismiss:hover:before {
+    color: var(--nova-grey-dark);
+}
+
+/* ==========================================================================
+   TRANSLATIONS
+   ========================================================================== */
+/* General table styling for translations */
+#nova-admin-translations-form .form-table,
+#translations-table { /* Target both possible table structures */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--nova-spacing-md);
+    overflow: hidden; /* Clip content to border-radius */
+    background-color: var(--nova-white);
+}
+
+#nova-admin-translations-form th,
+#translations-table th {
+    font-weight: 400;
+    width: 25%; /* Give original text column a fixed width */
+    white-space: normal; /* Allow wrapping */
+}
+
+#nova-admin-translations-form td,
+#translations-table td {
+    width: 75%; /* Give translation column more space */
+}
+
+#translations-table td.translation-original strong {
+    font-weight: 600; /* Make original text bold */
+    color: #2271b1; /* Default color */
+}
+
+#translations-table textarea,
+#nova-admin-translations-form textarea /* Ensure targeting */
+{
+    width: 100%; /* Take full width of the cell */
+    /* padding: var(--nova-spacing-md); */ /* Use default textarea padding */
+    /* border-color: rgba(209, 213, 219, 1); */ /* Use variable */
+    /* border-radius: var(--nova-form-border-radius); */ /* Use default */
+    /* box-shadow: var(--tw-ring-offset-shadow, 0 0 0), var(--tw-ring-shadow, 0 0 0), var(--tw-shadow); */ /* Use default */
+    min-height: 80px; /* Ensure decent height */
+    resize: vertical; /* Allow resizing */
+    margin: 0; /* Reset margin */
+    background: white;
+}
+
+/* Focus style inherited from global form styles */
+/*
+#translations-table textarea:focus {
+    outline: var(--nova-form-outline);
+    outline-offset: var(--nova-form-outline-offset);
+}
+*/
+
+.nova-translations-actions {
+    width: 100%;
+    display: flex; /* Layout controls */
+    gap: var(--nova-spacing-md);
+    flex-wrap: wrap; /* Allow wrapping */
+    margin-top: -.5rem; /* Adjust spacing */
+}
+
+.translation-search .nova-form-group {
+    margin-bottom: 0!important; /* Reset margin */
+}
+
+.nova-form-group.inline {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.nova-form-group.inline .nova-form-group {
+    width: calc(100% - 400px);
+    margin-bottom: 0;
+}
+
+.nova-form-group.inline #save_url,
+.nova-sync-actions #sync_now {
+    height: 40px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: #0783be;
+    border-radius: 6px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(16, 24, 40, .2);
+    text-decoration: none;
+    color: #fff !important;
+    transition: all .2s ease-in-out;
+    transition-property: background, border, box-shadow;
+}
+
+.nova-form-group.inline #save_url:hover {
+    border: 1px solid #0783be;
+    background-color: #fff;
+    color: #0783be!important;
+}
+.nova-form-group.inline #save_url {
+    border: 1px solid #066998;
+    background-color: #fff;
+    color: #066998!important;
+}
+
+.nova-sync-actions {
+    display: flex;
+    gap: var(--nova-spacing-md);
+    flex-wrap: wrap; /* Allow wrapping */
+    margin-top: -.5rem!important; /* Adjust spacing */
+}
+
+.nova-sync-actions #sync_now:hover {
+    background-color: #066998;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nova-sync-actions #sync_now {
+    width: 100%;
+}
+
+.nova-translations-actions  form {
+    display: flex;
+    gap: var(--nova-spacing-md); /* Space between elements */
+    flex-wrap: wrap; /* Allow wrapping */
+    align-items: center; /* Align items vertically */
+    justify-content: flex-start; /* Align to start */
+}
+
+select#translation_file {
+    font-size: 13px;
+    box-sizing: border-box;
+    height: 40px;
+    padding-left: 12px;
+    background-color: #fff;
+    border-color: #d0d5dd;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .1);
+    border-radius: 6px;
+    color: #344054;
+    min-width: 160px;
+    max-width: 100%;
+    padding-right: 40px;
+    padding-left: 12px;
+    background-image: url(../../svg/icon-chevron-down.svg);
+    background-position: right 10px top 50%;
+    background-size: 20px;
+}
+
+select#translation_file:focus {
+    outline: var(--nova-form-outline);
+    outline-offset: var(--nova-form-outline-offset);
+    border-color: var(--nova-theme-color);
+}
+
+select#translation_file:hover {
+    border-color: var(--nova-border-dark);
+}
+
+/* Container for search input */
+.translation-search {
+    /* width: 100%; */ /* Let flexbox handle sizing */
+    flex-grow: 1; /* Allow search to take available space */
+    min-width: 250px; /* Minimum width before wrapping */
+}
+
+html body .nova-inner .widefat.fixed.striped tr th {
+    height: 48px;
+    padding: 0 24px;
+    box-sizing: border-box;
+    background-color: #f9fafb;
+    border-color: #eaecf0;
+    font-weight: 500;
+    font-size: 14px;
+    color: #344054;
+}
+
+html body .nova-inner .widefat.fixed.striped tr td {
+    box-sizing: border-box;
+    height: 60px;
+    padding: 10px 24px;
+    vertical-align: top;
+    background-color: #fff;
+    border-bottom-width: 1px;
+    border-bottom-color: #eaecf0;
+    border-bottom-style: solid;
+    font-size: 13px !important;
+    font-weight: 400;
+    color: #344054;
+}
+
+html body .nova-inner .widefat.fixed.striped tr td a {
+    color: #0783be;
+    font-size: 13px !important;
+    font-weight: 500;
+}
+
+html body .nova-inner .widefat.fixed.striped tr td a:hover {
+    opacity: .8;
+}
+
+html body .nova-inner .widefat.fixed.striped tr:hover,
+html body .nova-inner .widefat.fixed.striped tr:focus-within,
+html body .nova-inner .widefat.fixed.striped tr:hover td,
+html body .nova-inner .widefat.fixed.striped tr:focus-within td {
+    background: #f7f7f7!important;
+}
+
+html body .nova-inner .widefat.fixed.striped  {
+    border: none;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Removed border-none for #translations-table as border is now on the table itself */
+/*
+#translations-table {
+    border: none;
+}
+*/
+
+/* Removed nova-rounded-table as border-radius is now directly on the table */
+/*
+.nova-rounded-table {
+    border-radius: var(--nova-table-radius) var(--nova-table-radius) 0 0;
+    overflow: hidden;
+}
+*/
+
+/* Sticky Footer */
+.nova-sticky-footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background: var(--nova-white);
+    z-index: 5; /* Below topbar, above content scroll */
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    padding: var(--nova-spacing-md) 0; /* Adjusted padding */
+    justify-content: flex-start; /* Align button to start */
+}
+
+.no-card .nova-sticky-footer {
+    background-color: #f0f0f1;
+}
+
+/* ==========================================================================
+   MISC & UTILITIES
+   ========================================================================== */
+
+/* Target specific image more reliably if possible */
+/* Maybe add a class to the image or its container */
+img[src$="/nova_theme_icon.svg"] { /* Use ends-with selector */
+    margin-top: -1px;
+    vertical-align: middle; /* Better alignment */
+}
+
+.nova-inner {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping by default */
+    gap: var(--nova-spacing-lg); /* Consistent gap */
+    padding: calc(50px + var(--nova-spacing-xl)) var(--nova-spacing-xl) var(--nova-spacing-xl) var(--nova-spacing-md);
+    width: 100%; /* Ensure full width */
+    max-width: 100%; /* Optional: Max width for very large screens */
+    margin-left: auto; /* Center max-width container */
+    margin-right: auto; /* Center max-width container */
+}
+
+.nova-logo {
+    display: block;
+    width: auto;
+    max-width: 220px;
+    height: auto;
+    margin-bottom: 26px;
+    margin-top: -8px;
+}
+
+.nova-theme-cpt-wrap .nova-card-footer {
+    margin-top: var(--nova-spacing-xl);
+}
+
+/* #nova-settings-message styles already updated */
+
+.nova-form-spacer {
+    margin: var(--nova-spacing-2xl) 0;
+    height: 1px;
+    width: calc(100% + 4rem);
+    margin-left: -2rem;
+    background: #eaecf0; /* Lighter spacer */
+    /* opacity: 0.5; */ /* Control via color */
+    border: none; /* Ensure it's not a border */
+}
+
+.nova-form-spacer + p.submit {
+    margin: 0;
+    padding: 0;
+}
+
+#nova-global-loader {
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7); /* Lighter overlay */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    transition: opacity var(--nova-transition); /* Smooth transition */
+}
+
+/* Add spinner styles here if needed */
+/* Example:
+#nova-global-loader::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--nova-theme-color-light);
+    border-top-color: var(--nova-theme-color);
+    border-radius: 50%;
+    animation: nova-spin 1s linear infinite;
+}
+@keyframes nova-spin {
+    to { transform: rotate(360deg); }
+}
+*/
+body.nova-loading #nova-global-loader {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.nova-form-group label.nova-toggle {
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    width: fit-content;
+}
+
+.nova-toggle-checkbox {
+    display: none!important;
+}
+
+.nova-toggle-switch {
+    display: inline-block;
+    background: #d0d5dd;
+    border-radius: 16px;
+    width: 42px;
+    height: 24px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+}
+.nova-toggle-switch:before, .nova-toggle-switch:after {
+    content: "";
+}
+
+.nova-toggle-switch:before {
+    background: #fff;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 100px;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, .1), 0px 1px 2px rgba(16, 24, 40, .06);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.25s;
+}
+
+.nova-toggle:hover .nova-toggle-switch {
+    background: #98a2b3;
+}
+
+.nova-toggle:hover .nova-toggle-checkbox:checked + .nova-toggle-switch {
+    background: var(--nova-theme-color-dark);
+}
+
+.nova-toggle-checkbox:checked + .nova-toggle-switch {
+    background: var(--nova-theme-color);
+}
+
+.nova-toggle-checkbox:checked + .nova-toggle-switch:before {
+    left: 20px;
+}
+
+.nova-toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.nova-toggle-label {
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nova-toggle-label span:first-child {
+    font-weight: 500;
+    line-height: 1.4;
+    font-size: 13px;
+    color: rgb(60, 67, 74);
+}
+
+.nova-toggle-label span:last-child {
+    font-size: 12px;
+    color: #667085;
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   RESPONSIVE STYLES
+   ========================================================================== */
+
+/* Medium Screens (Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    :root {
+        /* Optional: Adjust base font size slightly */
+        /* --nova-font-size-base: 13px; */
+    }
+
+    .nova-inner {
+        gap: var(--nova-spacing-md); /* Reduce gap */
+        padding-left: var(--nova-spacing-md);
+        padding-right: var(--nova-spacing-md);
+    }
+
+    .nova-sidebar {
+        max-width: 200px; /* Slightly narrower sidebar */
+    }
+
+    .nova-main {
+        width: calc(100% - 216px); /* Adjust main width (200px + 16px gap) */
+    }
+
+    .nova-card {
+        padding: var(--nova-spacing-xl); /* Reduce card padding */
+    }
+
+    .nova-card-header h2 {
+        font-size: 1.75rem; /* Reduce heading size */
+        margin-bottom: var(--nova-spacing-lg);
+    }
+
+    .nova-form-spacer-title {
+        font-size: 1.1rem; /* Reduce title size */
+    }
+
+    #add-new-cpt {
+        right: var(--nova-spacing-xl); /* Adjust position */
+        top: var(--nova-spacing-xl); /* Adjust position */
+        padding: 12px 20px; /* Slightly smaller button */
+        min-height: 48px;
+    }
+
+    .nova-form-group-api {
+        /* max-width remains */
+    }
+
+    #nova-test-api-token {
+        /* Styling should adapt via flex */
+    }
+
+    html body .nova-remove-file.button-secondary {
+        /* Position likely okay, check visually */
+    }
+
+    .nova-logs-table-wrap table th,
+    .nova-logs-table-wrap table td {
+        padding: var(--nova-spacing-sm) var(--nova-spacing-sm); /* Reduce table cell padding */
+    }
+
+    #nova-admin-translations-form th,
+    #translations-table th,
+    #nova-admin-translations-form td,
+    #translations-table td {
+        padding: var(--nova-spacing-sm); /* Reduce padding */
+    }
+}
+
+
+/* Small Screens (Tablets Portrait / Large Phones) */
+@media (max-width: 768px) {
+    .nova-theme-settings-wrap,
+    .nova-theme-translations-wrap,
+    .nova-theme-cpt-wrap {
+        margin: 0; /* Remove negative margin */
+        padding-top: 50px; /* Add padding formerly covered by topbar absolute */
+    }
+
+    .nova-topbar {
+        position: fixed; /* Fix topbar to viewport */
+        width: 100%; /* Full width */
+        /* left: 0; */ /* Ensure it starts at the left edge */
+        /* right: auto; */ /* Override default right */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Lighter shadow */
+    }
+
+    .nova-inner {
+        flex-direction: column; /* Stack sidebar and main */
+        padding-top: var(--nova-spacing-lg); /* Reduce top padding */
+        padding-left: var(--nova-spacing-sm); /* Further reduce padding */
+        padding-right: var(--nova-spacing-sm);
+        padding-bottom: var(--nova-spacing-lg);
+    }
+
+    .nova-sidebar {
+        max-width: none; /* Remove max-width */
+        width: 100%; /* Full width */
+        margin-bottom: var(--nova-spacing-lg); /* Add space below sidebar */
+    }
+
+    .nova-logo {
+        margin: var(--nova-spacing-sm) auto var(--nova-spacing-xs) var(--nova-spacing-sm); /* Adjust logo margin */
+        max-width: 160px;
+    }
+
+    .nova-sidebar-list ul {
+        margin-top: var(--nova-spacing-md); /* Reduce space above nav */
+    }
+
+    .nova-main {
+        width: 100%; /* Full width */
+    }
+
+    .nova-card {
+        padding: var(--nova-spacing-lg); /* Further reduce card padding */
+        margin-top: var(--nova-spacing-lg); /* Reduce space between cards */
+    }
+
+    .nova-card-header h2 {
+        font-size: 1.5rem; /* Further reduce heading size */
+        margin-bottom: var(--nova-spacing-md);
+    }
+
+    .nova-form-spacer-title {
+        font-size: 1rem; /* Further reduce title size */
+        margin-bottom: var(--nova-spacing-md);
+    }
+
+    .nova-form-group input[type="text"],
+    .nova-form-group input[type="password"],
+    .nova-form-group select,
+    .nova-form-group textarea,
+    .nova-dropzone,
+    .nova-form-group-api {
+        max-width: none; /* Remove max-width constraints */
+    }
+
+    .nova-form-group-api {
+        flex-direction: column; /* Stack API input and button */
+        align-items: stretch; /* Make items full width */
+        gap: var(--nova-spacing-sm);
+    }
+
+    #nova-test-api-token {
+        width: 100%; /* Full width button */
+        margin-top: 0; /* Remove top margin */
+    }
+
+    #add-new-cpt {
+        position: static; /* Change from absolute to static */
+        display: block; /* Make it a block element */
+        width: 100%; /* Full width */
+        margin: var(--nova-spacing-md) 0 0 0; /* Adjust margin */
+        text-align: center; /* Center text */
+        order: 10; /* Move button to the end of the card flex order if needed */
+    }
+
+    .nova-card:has(#add-new-cpt) {
+        padding-bottom: var(--nova-spacing-lg); /* Add padding if button was absolutely positioned */
+    }
+
+    html body .nova-remove-file.button-secondary {
+        top: -8px; /* Adjust position */
+        right: -8px;
+        width: 28px; /* Smaller button */
+        height: 28px;
+        line-height: 1;
+    }
+
+    .nova-upload-preview img {
+        max-width: 120px; /* Smaller preview image */
+    }
+
+    .nova-dropzone {
+        padding: var(--nova-spacing-lg);
+    }
+
+    .nova-sticky-footer {
+        padding: var(--nova-spacing-sm); /* Reduce padding */
+        flex-direction: column; /* Stack elements if needed */
+        align-items: stretch; /* Stretch items */
+        gap: var(--nova-spacing-sm);
+    }
+
+    .nova-sticky-footer #submit {
+        width: 100%; /* Full width button */
+        padding: 12px 20px; /* Adjust padding */
+        min-height: 44px;
+    }
+
+    #nova-admin-translations-form th,
+    #translations-table th {
+        width: 35%; /* Adjust column width balance */
+    }
+
+    #nova-admin-translations-form td,
+    #translations-table td {
+        width: 65%;
+    }
+
+    #nova-settings-message .notice {
+        padding: var(--nova-spacing-sm); /* Reduce notice padding */
+    }
+
+    #nova-settings-message .notice-dismiss {
+        top: 4px;
+        right: 4px;
+    }
+}
+
+/* Extra Small Screens (Mobile Phones) */
+@media (max-width: 480px) {
+    :root {
+        /* Further reduce spacing */
+        --nova-spacing-xs: 3px;
+        --nova-spacing-sm: 6px;
+        --nova-spacing-md: 12px;
+        --nova-spacing-lg: 18px;
+        --nova-spacing-xl: 24px;
+    }
+
+    .nova-card {
+        padding: var(--nova-spacing-md); /* Minimal padding */
+        border-radius: var(--nova-notice-radius); /* Slightly smaller radius */
+    }
+
+    .nova-card-header h2 {
+        font-size: 1.3rem; /* Smaller heading */
+    }
+
+    .nova-form-group label,
+    .nova-checkbox-text .nova-checkbox-label-text,
+    .nova-checkbox-description,
+    .nova-button,
+    .nova-logs-table-wrap table th,
+    .nova-logs-table-wrap table td,
+    #nova-admin-translations-form th,
+    #translations-table th,
+    #nova-admin-translations-form td,
+    #translations-table td {
+        font-size: 12px; /* Slightly smaller font for readability */
+    }
+
+    .nova-topbar-inner h1 {
+        font-size: 13px; /* Smaller topbar title */
+    }
+
+    .nova-form-group input[type="text"],
+    .nova-form-group input[type="password"],
+    .nova-form-group select,
+    .nova-form-group textarea {
+        min-height: 40px; /* Reduce min height */
+        padding: var(--nova-spacing-xs) var(--nova-spacing-sm); /* Adjust padding */
+        transition: border var(--nova-transition);
+    }
+
+    .nova-button,
+    #nova-test-api-token,
+    .nova-sticky-footer #submit {
+        min-height: 40px; /* Reduce button min height */
+        padding: var(--nova-spacing-sm) var(--nova-spacing-md); /* Adjust button padding */
+        font-size: 12px;
+    }
+
+    .nova-dropzone {
+        padding: var(--nova-spacing-md);
+    }
+
+    .nova-dropzone-text {
+        font-size: 0.8rem;
+    }
+
+    .nova-dropzone-support {
+        font-size: 11px;
+    }
+
+    .nova-logs-table-wrap {
+        border-radius: var(--nova-notice-radius); /* Match card radius */
+    }
+
+    #nova-admin-translations-form th,
+    #translations-table th,
+    #nova-admin-translations-form td,
+    #translations-table td {
+        padding: var(--nova-spacing-xs) var(--nova-spacing-sm); /* Minimal padding */
+        display: block; /* Stack table cells */
+        width: 100%;
+        border-bottom: none; /* Remove inner borders */
+    }
+
+    #nova-admin-translations-form th,
+    #translations-table th {
+        background-color: transparent; /* Remove header background */
+        font-weight: bold; /* Make original text bold */
+        border-bottom: 1px dashed var(--nova-grey-light); /* Add separator */
+        padding-bottom: var(--nova-spacing-xs);
+        margin-bottom: var(--nova-spacing-xs);
+    }
+
+    #nova-admin-translations-form tr,
+    #translations-table tr {
+        display: block; /* Make rows blocks */
+        margin-bottom: var(--nova-spacing-md); /* Space between stacked rows */
+        border-bottom: var(--nova-border); /* Border below each "row" */
+        padding-bottom: var(--nova-spacing-md);
+    }
+
+    #nova-admin-translations-form tr:last-child,
+    #translations-table tr:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    #nova-admin-translations-form td textarea,
+    #translations-table td textarea {
+        min-height: 60px; /* Reduce textarea height */
+    }
+
+    .nova-sticky-footer {
+        border-radius: 0; /* Remove radius on smallest screens */
+        padding: var(--nova-spacing-sm);
+    }
+}

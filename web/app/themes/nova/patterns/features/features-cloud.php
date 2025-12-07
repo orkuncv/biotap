@@ -1,0 +1,213 @@
+<?php
+/**
+ * Title: Features cloud
+ * Slug: nova/features-cloud
+ * Categories: features
+ * Description: A full-width layout with a centered heading and a grid of features with icons.
+ *
+ * @author  Movve - https://movve.nl
+ * @package Nova
+ * @since   1.0.0
+ */
+?>
+
+<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
+
+	<!-- wp:heading {"textAlign":"center","level":2,"fontSize":"xl-heading"} -->
+	<h2 class="wp-block-heading has-text-align-center has-xl-heading-font-size"><?php echo esc_html_x( 'This is a headline for the title part', 'Features cloud heading', 'nova' ); ?></h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:spacer {"height":"var:preset|spacing|60"} -->
+	<div style="height:var(--wp--preset--spacing--60)" aria-hidden="true" class="wp-block-spacer"></div>
+	<!-- /wp:spacer -->
+
+	<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|60","left":"var:preset|spacing|50"}}}} -->
+	<div class="wp-block-columns alignwide">
+
+		<!-- wp:column {"width":"25%"} -->
+		<div class="wp-block-column" style="flex-basis:25%">
+
+			<!-- wp:cover {"dimRatio":0,"overlayColor":"nova-50","isUserOverlayColor":true,"isDark":false,"className":"nova-cloud-placeholder","backgroundColor":"nova-10"} -->
+			<div class="wp-block-cover is-light nova-cloud-placeholder has-nova-10-background-color has-background">
+				<span aria-hidden="true" class="wp-block-cover__background has-nova-50-background-color has-background-dim-0 has-background-dim"></span>
+				<div class="wp-block-cover__inner-container">
+					<!-- wp:paragraph -->
+					<p></p>
+					<!-- /wp:paragraph -->
+				</div>
+			</div>
+			<!-- /wp:cover -->
+
+			<!-- wp:heading {"textAlign":"center","level":4,"fontSize":"s-heading"} -->
+			<h4 class="wp-block-heading has-text-align-center has-s-heading-font-size"><?php echo esc_html_x( 'Feature name', 'Feature cloud item title 1', 'nova' ); ?></h4>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"align":"center","fontSize":"p-small"} -->
+			<p class="has-text-align-center has-p-small-font-size"><?php echo esc_html_x( 'Consectetur nisi at mattis odio sit non fermentum. Vitae eleifend id tincidunt urna diam.', 'Feature cloud item description 1', 'nova' ); ?></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"25%"} -->
+		<div class="wp-block-column" style="flex-basis:25%">
+
+			<!-- wp:cover {"dimRatio":0,"overlayColor":"nova-50","isUserOverlayColor":true,"isDark":false,"className":"nova-cloud-placeholder","backgroundColor":"nova-10"} -->
+			<div class="wp-block-cover is-light nova-cloud-placeholder has-nova-10-background-color has-background">
+				<span aria-hidden="true" class="wp-block-cover__background has-nova-50-background-color has-background-dim-0 has-background-dim"></span>
+				<div class="wp-block-cover__inner-container">
+					<!-- wp:paragraph -->
+					<p></p>
+					<!-- /wp:paragraph -->
+				</div>
+			</div>
+			<!-- /wp:cover -->
+
+			<!-- wp:heading {"textAlign":"center","level":4,"fontSize":"s-heading"} -->
+			<h4 class="wp-block-heading has-text-align-center has-s-heading-font-size"><?php echo esc_html_x( 'Feature name', 'Feature cloud item title 2', 'nova' ); ?></h4>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"align":"center","fontSize":"p-small"} -->
+			<p class="has-text-align-center has-p-small-font-size"><?php echo esc_html_x( 'Consectetur nisi at mattis odio sit non fermentum. Vitae eleifend id tincidunt urna diam.', 'Feature cloud item description 2', 'nova' ); ?></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"25%"} -->
+		<div class="wp-block-column" style="flex-basis:25%">
+
+			<!-- wp:cover {"dimRatio":0,"overlayColor":"nova-50","isUserOverlayColor":true,"isDark":false,"className":"nova-cloud-placeholder","backgroundColor":"nova-10"} -->
+			<div class="wp-block-cover is-light nova-cloud-placeholder has-nova-10-background-color has-background">
+				<span aria-hidden="true" class="wp-block-cover__background has-nova-50-background-color has-background-dim-0 has-background-dim"></span>
+				<div class="wp-block-cover__inner-container">
+					<!-- wp:paragraph -->
+					<p></p>
+					<!-- /wp:paragraph -->
+				</div>
+			</div>
+			<!-- /wp:cover -->
+
+			<!-- wp:heading {"textAlign":"center","level":4,"fontSize":"s-heading"} -->
+			<h4 class="wp-block-heading has-text-align-center has-s-heading-font-size"><?php echo esc_html_x( 'Feature name', 'Feature cloud item title 3', 'nova' ); ?></h4>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"align":"center","fontSize":"p-small"} -->
+			<p class="has-text-align-center has-p-small-font-size"><?php echo esc_html_x( 'Consectetur nisi at mattis odio sit non fermentum. Vitae eleifend id tincidunt urna diam.', 'Feature cloud item description 3', 'nova' ); ?></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"25%"} -->
+		<div class="wp-block-column" style="flex-basis:25%">
+
+			<!-- wp:cover {"dimRatio":0,"overlayColor":"nova-50","isUserOverlayColor":true,"isDark":false,"className":"nova-cloud-placeholder","backgroundColor":"nova-10"} -->
+			<div class="wp-block-cover is-light nova-cloud-placeholder has-nova-10-background-color has-background">
+				<span aria-hidden="true" class="wp-block-cover__background has-nova-50-background-color has-background-dim-0 has-background-dim"></span>
+				<div class="wp-block-cover__inner-container">
+					<!-- wp:paragraph -->
+					<p></p>
+					<!-- /wp:paragraph -->
+				</div>
+			</div>
+			<!-- /wp:cover -->
+
+			<!-- wp:heading {"textAlign":"center","level":4,"fontSize":"s-heading"} -->
+			<h4 class="wp-block-heading has-text-align-center has-s-heading-font-size"><?php echo esc_html_x( 'Feature name', 'Feature cloud item title 4', 'nova' ); ?></h4>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"align":"center","fontSize":"p-small"} -->
+			<p class="has-text-align-center has-p-small-font-size"><?php echo esc_html_x( 'Consectetur nisi at mattis odio sit non fermentum. Vitae eleifend id tincidunt urna diam.', 'Feature cloud item description 4', 'nova' ); ?></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+	</div>
+	<!-- /wp:columns -->
+
+	<!-- wp:columns {"className":"nova-is-content-justification-center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|60","left":"var:preset|spacing|50"}}}} -->
+	<div class="wp-block-columns nova-is-content-justification-center">
+
+		<!-- wp:column {"width":"25%"} -->
+		<div class="wp-block-column" style="flex-basis:25%">
+
+            <!-- wp:cover {"dimRatio":0,"overlayColor":"nova-50","isUserOverlayColor":true,"isDark":false,"className":"nova-cloud-placeholder","backgroundColor":"nova-10"} -->
+			<div class="wp-block-cover is-light nova-cloud-placeholder has-nova-10-background-color has-background">
+				<span aria-hidden="true" class="wp-block-cover__background has-nova-50-background-color has-background-dim-0 has-background-dim"></span>
+				<div class="wp-block-cover__inner-container">
+					<!-- wp:paragraph -->
+					<p></p>
+					<!-- /wp:paragraph -->
+				</div>
+			</div>
+			<!-- /wp:cover -->
+
+			<!-- wp:heading {"textAlign":"center","level":4,"fontSize":"s-heading"} -->
+			<h4 class="wp-block-heading has-text-align-center has-s-heading-font-size"><?php echo esc_html_x( 'Feature name', 'Feature cloud item title 5', 'nova' ); ?></h4>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"align":"center","fontSize":"p-small"} -->
+			<p class="has-text-align-center has-p-small-font-size"><?php echo esc_html_x( 'Consectetur nisi at mattis odio sit non fermentum. Vitae eleifend id tincidunt urna diam.', 'Feature cloud item description 5', 'nova' ); ?></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"25%"} -->
+		<div class="wp-block-column" style="flex-basis:25%">
+
+            <!-- wp:cover {"dimRatio":0,"overlayColor":"nova-50","isUserOverlayColor":true,"isDark":false,"className":"nova-cloud-placeholder","backgroundColor":"nova-10"} -->
+			<div class="wp-block-cover is-light nova-cloud-placeholder has-nova-10-background-color has-background">
+				<span aria-hidden="true" class="wp-block-cover__background has-nova-50-background-color has-background-dim-0 has-background-dim"></span>
+				<div class="wp-block-cover__inner-container">
+					<!-- wp:paragraph -->
+					<p></p>
+					<!-- /wp:paragraph -->
+				</div>
+			</div>
+			<!-- /wp:cover -->
+
+			<!-- wp:heading {"textAlign":"center","level":4,"fontSize":"s-heading"} -->
+			<h4 class="wp-block-heading has-text-align-center has-s-heading-font-size"><?php echo esc_html_x( 'Feature name', 'Feature cloud item title 6', 'nova' ); ?></h4>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"align":"center","fontSize":"p-small"} -->
+			<p class="has-text-align-center has-p-small-font-size"><?php echo esc_html_x( 'Consectetur nisi at mattis odio sit non fermentum. Vitae eleifend id tincidunt urna diam.', 'Feature cloud item description 6', 'nova' ); ?></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"25%"} -->
+		<div class="wp-block-column" style="flex-basis:25%">
+
+			<!-- wp:cover {"dimRatio":0,"overlayColor":"nova-50","isUserOverlayColor":true,"isDark":false,"className":"nova-cloud-placeholder","backgroundColor":"nova-10"} -->
+			<div class="wp-block-cover is-light nova-cloud-placeholder has-nova-10-background-color has-background">
+				<span aria-hidden="true" class="wp-block-cover__background has-nova-50-background-color has-background-dim-0 has-background-dim"></span>
+				<div class="wp-block-cover__inner-container">
+					<!-- wp:paragraph -->
+					<p></p>
+					<!-- /wp:paragraph -->
+				</div>
+			</div>
+			<!-- /wp:cover -->
+
+			<!-- wp:heading {"textAlign":"center","level":4,"fontSize":"s-heading"} -->
+			<h4 class="wp-block-heading has-text-align-center has-s-heading-font-size"><?php echo esc_html_x( 'Feature name', 'Feature cloud item title 7', 'nova' ); ?></h4>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"align":"center","fontSize":"p-small"} -->
+			<p class="has-text-align-center has-p-small-font-size"><?php echo esc_html_x( 'Consectetur nisi at mattis odio sit non fermentum. Vitae eleifend id tincidunt urna diam.', 'Feature cloud item description 7', 'nova' ); ?></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+	</div>
+	<!-- /wp:columns -->
+
+</div>
+<!-- /wp:group -->

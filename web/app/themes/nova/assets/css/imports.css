@@ -1,0 +1,30 @@
+/**
+ * Nova Theme: Imports
+ *
+ * This file is used to compose all the styles.
+ * When a child theme is activated, this file is loaded first,
+ * allowing all styles to be easily overridden.
+ *
+ * @package Nova
+ * @since   1.0.0
+ * @author  Movve - https://movve.nl
+ */
+
+/* ==========================================================================
+   NOVA BLOCK THEME UTILITY CLASSES
+   ========================================================================== */
+
+@import url("./utilities.css");
+
+/* ==========================================================================
+   NOVA PARTS STYLES
+   ========================================================================== */
+
+@import url("./parts/header.css");
+@import url("./parts/footer.css");
+
+/* ==========================================================================
+   NOVA BLOCKS STYLES
+   ========================================================================== */
+
+@import url("./blocks/social-icons.css");

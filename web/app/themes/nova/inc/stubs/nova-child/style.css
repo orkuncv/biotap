@@ -1,0 +1,30 @@
+/*
+Theme Name: Nova Child
+Template: nova-theme
+Theme URI: https://movve.nl/
+Author: Movve
+Author URI: https://movve.nl/
+Description: Child theme for the Nova theme.
+Requires at least: 6.7
+Tested up to: 6.8.3
+Requires PHP: 8.4
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: nova
+Tags: one-column, custom-colors, custom-menu, custom-logo, editor-style, featured-images, full-site-editing, block-patterns, rtl-language-support, sticky-post, threaded-comments, translation-ready, wide-blocks, block-styles, accessibility-ready, blog, portfolio, news
+*/
+
+/* ==========================================================================
+   NOVA CHILD THEME STYLES
+   ========================================================================== */
+
+@import url("./assets/css/imports.css");
+
+/* ==========================================================================
+   CUSTOM STYLES
+   ========================================================================== */
+
+html, body {
+    -webkit-font-smoothing: antialiased;
+}

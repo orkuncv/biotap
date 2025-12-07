@@ -1,0 +1,53 @@
+<!-- wp:template-part {"slug":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--60)">
+
+	<!-- wp:group {"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group nova-search__results-wrapper">
+
+		<!-- wp:query-title {"type":"search"} /-->
+
+		<!-- wp:query {"queryId":1,"query":{"perPage":10,"pages":0,"offset":0,"postType":["post","page"],"order":"desc","orderBy":"date","sticky":"exclude","inherit":true},"displayLayout":{"type":"list"},"layout":{"type":"default"}} -->
+		<!-- wp:post-template -->
+		<!-- wp:group {"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group nova-search__results-item">
+			<!-- wp:group {"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group">
+                <!-- wp:post-date /-->
+				<!-- wp:post-title {"isLink":true} /-->
+			</div>
+			<!-- /wp:group -->
+			<!-- wp:post-excerpt {"moreText":"Lees verder"} /-->
+		</div>
+		<!-- /wp:group -->
+		<!-- /wp:post-template -->
+
+		<!-- wp:group {"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group nova-header__search-search">
+			<!-- wp:query-no-results -->
+			<!-- wp:paragraph -->
+			<p>Geen resultaten gevonden. Probeer een andere term.</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:search {"label":"","placeholder":"Zoeken...","showLabel":false,"buttonText":"","buttonUseIcon":true,"className":"nova-header__search-search"} /-->
+			<!-- /wp:query-no-results -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+		<!-- wp:query-pagination-previous {"label":"Vorige"} /-->
+		<!-- wp:query-pagination-numbers /-->
+		<!-- wp:query-pagination-next {"label":"Volgende"} /-->
+		<!-- /wp:query-pagination -->
+		<!-- /wp:query -->
+
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:spacer {"height":"var:preset|spacing|80"} -->
+	<div style="height:var(--wp--preset--spacing--80)" aria-hidden="true" class="wp-block-spacer"></div>
+	<!-- /wp:spacer -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer"} /-->

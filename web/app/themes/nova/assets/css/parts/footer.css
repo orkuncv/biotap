@@ -1,0 +1,203 @@
+/**
+ * Nova partial: Footer Styles
+ *
+ * @package Nova
+ * @since   1.0.0
+ */
+
+/* ==========================================================================
+   Logo
+   ========================================================================== */
+
+.nova-footer-logo-block-wrapper,
+.nova-footer-logo-block-wrapper img {
+    max-height: var(--nova-footer-logo-height, 76px);
+    position: relative;
+}
+
+/* Logo size variations */
+body.nova-footer-logo-small .nova-footer-logo-block-wrapper,
+body.nova-footer-logo-small .nova-footer-logo-block-wrapper img {
+    --nova-footer-logo-height: 56px;
+}
+
+body.nova-footer-logo-medium .nova-footer-logo-block-wrapper,
+body.nova-footer-logo-medium .nova-footer-logo-block-wrapper img {
+    --nova-footer-logo-height: 76px;
+}
+
+body.nova-footer-logo-large .nova-footer-logo-block-wrapper,
+body.nova-footer-logo-large .nova-footer-logo-block-wrapper img {
+    --nova-footer-logo-height: 96px;
+}
+
+.nova-footer-logo-block-wrapper a {
+    display: flex;
+    height: 100%;
+}
+
+/* ==========================================================================
+   Address
+   ========================================================================== */
+
+.nova-footer-logo-block-wrapper + .wp-block-group:has( p + p ) {
+    display: flex;
+    align-items: center;
+}
+
+.nova-footer-logo-block-wrapper + .wp-block-group:has( p + p ) p {
+    margin: 0;
+}
+
+.nova-footer-logo-block-wrapper + .wp-block-group:has( p + p ) p:first-child::after {
+    content: "-";
+    margin: 0 0.875rem;
+}
+
+/* ==========================================================================
+   Menus
+   ========================================================================== */
+
+html body .nova-footer-menus-wrapper .wp-block-navigation__container.wp-block-navigation a span {
+    font-weight: 300;
+    position: relative;
+}
+
+html body .nova-footer-menus-wrapper .nova-special-link a {
+    position: relative;
+}
+
+html body .nova-footer-menus-wrapper .nova-special-link a::after,
+html body .nova-footer-menus-wrapper .wp-block-navigation__container.wp-block-navigation a span::after {
+    position: absolute;
+    display: block;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    content: '';
+    width: 80%;
+    height: 1px;
+    background-color: white;
+    opacity: 0;
+    transition: opacity 0.1s cubic-bezier(.62,.16,.13,1.01), width 0.1s cubic-bezier(.62,.16,.13,1.01);
+}
+
+html body .nova-footer-menus-wrapper .nova-special-link a:hover::after,
+html body .nova-footer-menus-wrapper .wp-block-navigation__container.wp-block-navigation a:hover span::after {
+    opacity: 1;
+    width: 100%;
+}
+
+html body .nova-footer-menus-wrapper .nova-special-link a,
+.nova-footer-menus-wrapper .wp-block-navigation .wp-block-navigation-item__content {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+html body .nova-footer-menus-wrapper .nova-special-link a:focus-visible,
+.nova-footer-menus-wrapper .wp-block-navigation .wp-block-navigation-item__content:focus-visible {
+    outline: 2px solid var(--wp--preset--color--nova-75) !important;
+    outline-offset: 4px !important;
+    border-radius: 2px;
+}
+
+html body .nova-footer-menus-wrapper .nova-special-link {
+    text-decoration: none;
+}
+
+html body .nova-footer-menus-wrapper .nova-special-link a {
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   Bottom
+   ========================================================================== */
+
+.nova-footer-separator {
+    margin-bottom: 2rem;
+    margin-top: 2.5rem;
+}
+
+.nova-footer-bottom-wrapper .wp-block-navigation__container.wp-block-navigation {
+    gap: 1rem;
+}
+
+.nova-footer-bottom-wrapper .wp-block-navigation__container.wp-block-navigation a,
+.nova-footer-bottom-wrapper .wp-block-navigation__container.wp-block-navigation a span {
+    font-weight: 300;
+    font-size: var(--wp--preset--font-size--p-small);
+}
+
+.nova-footer-bottom-wrapper .wp-block-navigation__container.wp-block-navigation a:hover {
+    text-decoration: underline;
+}
+
+.nova-footer-bottom-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nova-footer-bottom-inner .wp-block-column {
+    flex-basis: unset !important;
+}
+
+.nova-footer-bottom-inner .wp-block-column:nth-of-type(1) {
+    width: 20%;
+}
+
+.nova-footer-bottom-inner .wp-block-column:nth-of-type(2) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    width: 80%;
+}
+
+.nova-footer-bottom-inner .wp-block-column:nth-of-type(2) p {
+    margin: 0;
+}
+
+@media (max-width: 799px) {
+    .nova-footer-logo-block-wrapper + .wp-block-group:has( p + p ) {
+        display: block;
+        word-break: auto-phrase;
+    }
+
+    .nova-footer-logo-block-wrapper + .wp-block-group:has( p + p ) p {
+        display: inline;
+    }
+
+    html body .nova-footer-bottom-inner {
+        flex-direction: column;
+    }
+
+    .nova-footer-bottom-inner .wp-block-column:nth-of-type(1) {
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        margin-top: -0.5rem;
+    }
+
+    .nova-footer-bottom-inner .wp-block-navigation__container.wp-block-navigation {
+        justify-content: center;
+        margin-top: 0.5rem;
+        gap: 0.5rem 1rem;
+    }
+
+    .nova-footer-bottom-inner .wp-block-column:nth-of-type(2) {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .nova-footer-bottom-inner .wp-block-column:nth-of-type(2) p {
+        text-align: center;
+    }
+}

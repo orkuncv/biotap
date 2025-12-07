@@ -1,0 +1,48 @@
+/**
+ * Nova Theme: Utilities
+ *
+ * This file contains custom utility classes for the Nova theme.
+ * Use these classes directly in your block editor or patterns.
+ *
+ * @package Nova
+ * @since   1.0.0
+ * @author  Movve - https://movve.nl
+ */
+
+/* ==========================================================================
+   Typography Utilities
+   ========================================================================== */
+
+html body .has-nova-reverse-underline,
+html body .has-nova-reverse-underline a {
+    text-decoration: none;
+}
+
+html body .has-nova-reverse-underline:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Content Justification
+   ========================================================================== */
+
+.nova-is-content-justification-center {
+    justify-content: center;
+}
+
+/* ==========================================================================
+   Gap Utilities
+   ========================================================================== */
+
+.nova-column-no-gap {
+    gap: 0 !important;
+}
+
+/* ==========================================================================
+   Icon Center Utility
+   ========================================================================== */
+
+.nova-icon-center {
+    width: fit-content;
+    margin: auto;
+}

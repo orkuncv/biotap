@@ -1,0 +1,168 @@
+name: Deploy to TransIP
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, xml, ctype, json, tokenizer, openssl, pdo, bcmath, gd, fileinfo
+          coverage: none
+          
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+        
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+          
+      - name: Install Composer dependencies
+        run: |
+          composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+        
+      - name: Create deployment archive
+        run: |
+          tar -czf ../deployment.tar.gz \
+            --exclude='.git*' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='tests' \
+            --exclude='.env.example' \
+            --exclude='*.md' \
+            .
+          mv ../deployment.tar.gz ./deployment.tar.gz
+            
+      - name: Deploy to TransIP server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            # Create backup of current deployment
+            if [ -d "${{ secrets.DEPLOY_PATH }}" ]; then
+              cp -r ${{ secrets.DEPLOY_PATH }} ${{ secrets.DEPLOY_PATH }}_backup_$(date +%Y%m%d_%H%M%S) || echo "Backup failed, continuing..."
+              # Keep only last 3 backups
+              ls -t ${{ secrets.DEPLOY_PATH }}_backup_* 2>/dev/null | tail -n +4 | xargs rm -rf 2>/dev/null || true
+            fi
+            
+            # Create deployment directory if it doesn't exist
+            mkdir -p ${{ secrets.DEPLOY_PATH }}
+            
+      - name: Transfer files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          source: "deployment.tar.gz"
+          target: "/tmp/"
+          
+      - name: Extract and finalize deployment
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            # Extract files
+            cd ${{ secrets.DEPLOY_PATH }}
+            tar -xzf /tmp/deployment.tar.gz --strip-components=0
+            
+            # Remove temporary archive
+            rm -f /tmp/deployment.tar.gz
+            
+            # Install/update Composer dependencies on server
+            composer install --no-dev --optimize-autoloader --no-interaction || echo "Composer install failed, check if composer is installed"
+            
+            # Set correct permissions (try with sudo first, then fallback)
+            if command -v sudo >/dev/null 2>&1; then
+              sudo find ${{ secrets.DEPLOY_PATH }} -type d -exec chmod 755 {} \; 2>/dev/null || find ${{ secrets.DEPLOY_PATH }} -type d -exec chmod 755 {} \;
+              sudo find ${{ secrets.DEPLOY_PATH }} -type f -exec chmod 644 {} \; 2>/dev/null || find ${{ secrets.DEPLOY_PATH }} -type f -exec chmod 644 {} \;
+              sudo chmod -R 755 ${{ secrets.DEPLOY_PATH }}/web 2>/dev/null || chmod -R 755 ${{ secrets.DEPLOY_PATH }}/web
+              sudo mkdir -p ${{ secrets.DEPLOY_PATH }}/web/app/uploads 2>/dev/null || mkdir -p ${{ secrets.DEPLOY_PATH }}/web/app/uploads
+              sudo chmod -R 775 ${{ secrets.DEPLOY_PATH }}/web/app/uploads 2>/dev/null || chmod -R 775 ${{ secrets.DEPLOY_PATH }}/web/app/uploads
+              sudo chown -R www-data:www-data ${{ secrets.DEPLOY_PATH }} 2>/dev/null || echo "Could not change ownership to www-data, continuing..."
+            else
+              find ${{ secrets.DEPLOY_PATH }} -type d -exec chmod 755 {} \;
+              find ${{ secrets.DEPLOY_PATH }} -type f -exec chmod 644 {} \;
+              chmod -R 755 ${{ secrets.DEPLOY_PATH }}/web
+              mkdir -p ${{ secrets.DEPLOY_PATH }}/web/app/uploads
+              chmod -R 775 ${{ secrets.DEPLOY_PATH }}/web/app/uploads
+            fi
+            
+            # Create .env file if it doesn't exist (you should have this on server)
+            if [ ! -f "${{ secrets.DEPLOY_PATH }}/.env" ]; then
+              echo "WARNING: .env file not found! Please create it manually on the server."
+            fi
+            
+            # Install/update WordPress Nederlandse taalbestanden
+            if command -v wp >/dev/null 2>&1; then
+              cd ${{ secrets.DEPLOY_PATH }}
+              WP_USER_FLAG=""
+              if command -v sudo >/dev/null 2>&1; then
+                WP_USER_FLAG="sudo -u www-data"
+              fi
+              
+              # Install core language files
+              $WP_USER_FLAG wp language core install nl_NL --path=web 2>/dev/null || echo "Could not install NL core language"
+              
+              # Update core language files
+              $WP_USER_FLAG wp language core update --path=web 2>/dev/null || echo "Could not update core languages"
+              
+              # Install plugin language files for all installed plugins
+              $WP_USER_FLAG wp language plugin install --all nl_NL --path=web 2>/dev/null || echo "Could not install plugin languages"
+              
+              # Update plugin language files
+              $WP_USER_FLAG wp language plugin update --all --path=web 2>/dev/null || echo "Could not update plugin languages"
+              
+              # Install theme language files
+              $WP_USER_FLAG wp language theme install --all nl_NL --path=web 2>/dev/null || echo "Could not install theme languages"
+              
+              # Clear WordPress cache
+              $WP_USER_FLAG wp cache flush --path=web 2>/dev/null || echo "Could not flush cache"
+            fi
+            
+      - name: Health check
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            # Simple health check
+            if curl -f -s ${{ secrets.SITE_URL || 'http://localhost' }} > /dev/null; then
+              echo "✅ Site is accessible"
+            else
+              echo "❌ Site health check failed"
+              exit 1
+            fi
+            
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "🚀 Deployment successful!"
+          else
+            echo "❌ Deployment failed!"
+          fi

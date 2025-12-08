@@ -1,0 +1,9 @@
+/* CTA Button Styles */
+.website-cta-button {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.website-cta-button:hover {
+    opacity: 0.9;
+}

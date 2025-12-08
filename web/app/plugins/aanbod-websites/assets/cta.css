@@ -2,8 +2,53 @@
 .website-cta-button {
     cursor: pointer;
     text-decoration: none;
+    display: inline-block;
+    background: #fff !important;
+    color: #000 !important;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+    border: none !important;
 }
 
 .website-cta-button:hover {
-    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Archive Cards Styling */
+.website-cards-grid {
+    gap: 40px !important;
+}
+
+.website-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.website-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.website-card .wp-block-cover__inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.website-card .wp-block-post-title {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.website-card .wp-block-post-excerpt {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Hide the default button, show only CTA */
+.website-card .wp-block-buttons:not(:has(.website-cta-button)) {
+    display: none;
 }

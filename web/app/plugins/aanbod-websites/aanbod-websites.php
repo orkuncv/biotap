@@ -46,6 +46,8 @@ class Aanbod_Websites {
         add_action('wp_ajax_nopriv_set_selected_website', [$this, 'handle_set_selected_website']);
         add_action('wp_ajax_clear_selected_website', [$this, 'handle_clear_selected_website']);
         add_action('wp_ajax_nopriv_clear_selected_website', [$this, 'handle_clear_selected_website']);
+        add_action('wp_ajax_get_website_id_by_slug', [$this, 'handle_get_website_id_by_slug']);
+        add_action('wp_ajax_nopriv_get_website_id_by_slug', [$this, 'handle_get_website_id_by_slug']);
     }
 
     public function start_session() {
@@ -765,12 +767,17 @@ class Aanbod_Websites {
     }
 
     public function render_cta_button($atts) {
+        global $post;
+
         $atts = shortcode_atts([
             'text' => __('Website Bestellen', 'aanbod-websites'),
             'checkout_page' => 'checkout',
+            'website_id' => 0,
         ], $atts);
 
-        $post_id = get_the_ID();
+        // Get post ID from attribute, current post, or get_the_ID()
+        $post_id = $atts['website_id'] ? intval($atts['website_id']) : ($post->ID ?? get_the_ID());
+
         if (!$post_id || get_post_type($post_id) !== 'website') {
             return '';
         }
@@ -1140,6 +1147,22 @@ class Aanbod_Websites {
     public function handle_clear_selected_website() {
         unset($_SESSION['selected_website_id']);
         wp_send_json_success(['message' => __('Website verwijderd.', 'aanbod-websites')]);
+    }
+
+    public function handle_get_website_id_by_slug() {
+        $slug = isset($_POST['slug']) ? sanitize_title($_POST['slug']) : '';
+
+        if (!$slug) {
+            wp_send_json_error(['message' => __('Geen slug opgegeven.', 'aanbod-websites')]);
+        }
+
+        $post = get_page_by_path($slug, OBJECT, 'website');
+
+        if ($post && $post->post_type === 'website') {
+            wp_send_json_success(['id' => $post->ID]);
+        } else {
+            wp_send_json_error(['message' => __('Website niet gevonden.', 'aanbod-websites')]);
+        }
     }
 }
 

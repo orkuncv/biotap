@@ -535,6 +535,7 @@ class Aanbod_Websites {
                         'type' => sanitize_text_field($field['type']),
                         'required' => isset($field['required']) ? 1 : 0,
                         'placeholder' => sanitize_text_field($field['placeholder'] ?? ''),
+                        'width' => sanitize_text_field($field['width'] ?? '100'),
                     ];
                 }
             }
@@ -564,9 +565,10 @@ class Aanbod_Websites {
                 <table class="checkout-fields-table">
                     <thead>
                         <tr>
-                            <th style="width: 25%;"><?php _e('Label', 'aanbod-websites'); ?></th>
-                            <th style="width: 20%;"><?php _e('Type', 'aanbod-websites'); ?></th>
-                            <th style="width: 25%;"><?php _e('Placeholder', 'aanbod-websites'); ?></th>
+                            <th style="width: 20%;"><?php _e('Label', 'aanbod-websites'); ?></th>
+                            <th style="width: 15%;"><?php _e('Type', 'aanbod-websites'); ?></th>
+                            <th style="width: 20%;"><?php _e('Placeholder', 'aanbod-websites'); ?></th>
+                            <th style="width: 15%;"><?php _e('Breedte', 'aanbod-websites'); ?></th>
                             <th style="width: 15%;"><?php _e('Verplicht', 'aanbod-websites'); ?></th>
                             <th style="width: 15%;"><?php _e('Acties', 'aanbod-websites'); ?></th>
                         </tr>
@@ -610,6 +612,12 @@ class Aanbod_Websites {
                             <td>
                                 <input type="text" name="checkout_fields[${fieldIndex}][placeholder]" placeholder="Placeholder tekst" />
                             </td>
+                            <td>
+                                <select name="checkout_fields[${fieldIndex}][width]">
+                                    <option value="50">50%</option>
+                                    <option value="100" selected>100%</option>
+                                </select>
+                            </td>
                             <td style="text-align: center;">
                                 <input type="checkbox" name="checkout_fields[${fieldIndex}][required]" value="1" />
                             </td>
@@ -632,6 +640,7 @@ class Aanbod_Websites {
     }
 
     private function render_field_row($index, $field) {
+        $width = isset($field['width']) ? $field['width'] : '100';
         ?>
         <tr>
             <td>
@@ -648,6 +657,12 @@ class Aanbod_Websites {
             </td>
             <td>
                 <input type="text" name="checkout_fields[<?php echo $index; ?>][placeholder]" value="<?php echo esc_attr($field['placeholder'] ?? ''); ?>" />
+            </td>
+            <td>
+                <select name="checkout_fields[<?php echo $index; ?>][width]">
+                    <option value="50" <?php selected($width, '50'); ?>>50%</option>
+                    <option value="100" <?php selected($width, '100'); ?>>100%</option>
+                </select>
             </td>
             <td style="text-align: center;">
                 <input type="checkbox" name="checkout_fields[<?php echo $index; ?>][required]" value="1" <?php checked($field['required'], 1); ?> />
@@ -888,7 +903,7 @@ class Aanbod_Websites {
 
                     <?php if ($has_extras): ?>
                     <div class="extras-selection">
-                        <h3><?php _e('Extra Opties', 'aanbod-websites'); ?></h3>
+                        <p><?php _e('Extra Opties', 'aanbod-websites'); ?></p>
 
                         <?php if (!empty($global_extras) && is_array($global_extras)): ?>
                             <?php foreach ($global_extras as $index => $extra): ?>
@@ -935,39 +950,44 @@ class Aanbod_Websites {
 
                     <?php if (!empty($checkout_fields)): ?>
                     <div class="checkout-form-section">
-                        <h3><?php _e('Uw Gegevens', 'aanbod-websites'); ?></h3>
+                        <p><?php _e('Uw Gegevens', 'aanbod-websites'); ?></p>
                         <form id="website-checkout-form">
                             <input type="hidden" name="website_id" value="<?php echo $website_id; ?>">
                             <input type="hidden" name="action" value="submit_website_order">
                             <input type="hidden" name="nonce" value="<?php echo wp_create_nonce('website_order_nonce'); ?>">
 
-                            <?php foreach ($checkout_fields as $index => $field): ?>
-                            <div class="form-field">
-                                <label for="field_<?php echo $index; ?>">
-                                    <?php echo esc_html($field['label']); ?>
-                                    <?php if ($field['required']): ?>
-                                        <span class="required">*</span>
-                                    <?php endif; ?>
-                                </label>
+                            <div class="form-fields-grid">
+                                <?php foreach ($checkout_fields as $index => $field):
+                                    $width = isset($field['width']) ? $field['width'] : '100';
+                                    $span = $width == '50' ? '6' : '12';
+                                ?>
+                                <div class="form-field col-span-<?php echo $span; ?>">
+                                    <label for="field_<?php echo $index; ?>">
+                                        <?php echo esc_html($field['label']); ?>
+                                        <?php if ($field['required']): ?>
+                                            <span class="required">*</span>
+                                        <?php endif; ?>
+                                    </label>
 
-                                <?php if ($field['type'] === 'textarea'): ?>
-                                    <textarea
-                                        id="field_<?php echo $index; ?>"
-                                        name="form_fields[<?php echo sanitize_key($field['label']); ?>]"
-                                        placeholder="<?php echo esc_attr($field['placeholder']); ?>"
-                                        <?php echo $field['required'] ? 'required' : ''; ?>
-                                    ></textarea>
-                                <?php else: ?>
-                                    <input
-                                        type="<?php echo esc_attr($field['type']); ?>"
-                                        id="field_<?php echo $index; ?>"
-                                        name="form_fields[<?php echo sanitize_key($field['label']); ?>]"
-                                        placeholder="<?php echo esc_attr($field['placeholder']); ?>"
-                                        <?php echo $field['required'] ? 'required' : ''; ?>
-                                    />
-                                <?php endif; ?>
+                                    <?php if ($field['type'] === 'textarea'): ?>
+                                        <textarea
+                                            id="field_<?php echo $index; ?>"
+                                            name="form_fields[<?php echo sanitize_key($field['label']); ?>]"
+                                            placeholder="<?php echo esc_attr($field['placeholder']); ?>"
+                                            <?php echo $field['required'] ? 'required' : ''; ?>
+                                        ></textarea>
+                                    <?php else: ?>
+                                        <input
+                                            type="<?php echo esc_attr($field['type']); ?>"
+                                            id="field_<?php echo $index; ?>"
+                                            name="form_fields[<?php echo sanitize_key($field['label']); ?>]"
+                                            placeholder="<?php echo esc_attr($field['placeholder']); ?>"
+                                            <?php echo $field['required'] ? 'required' : ''; ?>
+                                        />
+                                    <?php endif; ?>
+                                </div>
+                                <?php endforeach; ?>
                             </div>
-                            <?php endforeach; ?>
 
                             <button type="submit" class="button-submit"><?php _e('Bestelling Plaatsen', 'aanbod-websites'); ?></button>
                         </form>

@@ -1,15 +1,17 @@
 .website-checkout-wrapper {
-    max-width: 1400px;
     margin: 0 auto;
     padding: 40px 20px;
-    background: #f8f9fa;
+    background: #edf6ff;
+    max-width: 100%;
 }
 
 .checkout-container {
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 400px 1fr;
     gap: 40px;
     align-items: start;
+    width: 1180px;
 }
 
 @media (max-width: 1024px) {
@@ -22,8 +24,6 @@
 .checkout-left {
     background: #fff;
     padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     position: sticky;
     top: 20px;
 }
@@ -44,7 +44,6 @@
 .checkout-right {
     background: #fff;
     padding: 40px;
-    border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
@@ -166,8 +165,30 @@
     border-radius: 8px;
 }
 
-.form-field {
+.form-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
     margin-bottom: 20px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field.col-span-6 {
+    grid-column: span 6 / span 6;
+}
+
+.form-field.col-span-12 {
+    grid-column: span 12 / span 12;
+}
+
+@media (max-width: 768px) {
+    .form-field.col-span-6 {
+        grid-column: span 12 / span 12;
+    }
 }
 
 .form-field label {
@@ -184,10 +205,19 @@
 .form-field input[type="text"],
 .form-field input[type="email"],
 .form-field input[type="tel"],
-.form-field input[type="number"],
+.form-field input[type="number"] {
+    width: 100%;
+    height: 56px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
 .form-field textarea {
     width: 100%;
-    padding: 12px 15px;
+    padding: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;

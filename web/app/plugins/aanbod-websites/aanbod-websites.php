@@ -61,38 +61,38 @@ class Aanbod_Websites {
 
     public function register_post_type() {
         $labels = [
-            'name'                  => _x('Websites', 'Post Type General Name', 'aanbod-websites'),
-            'singular_name'         => _x('Website', 'Post Type Singular Name', 'aanbod-websites'),
-            'menu_name'             => __('Websites', 'aanbod-websites'),
-            'name_admin_bar'        => __('Website', 'aanbod-websites'),
-            'archives'              => __('Website Archief', 'aanbod-websites'),
-            'attributes'            => __('Website Attributen', 'aanbod-websites'),
-            'parent_item_colon'     => __('Parent Website:', 'aanbod-websites'),
-            'all_items'             => __('Alle Websites', 'aanbod-websites'),
-            'add_new_item'          => __('Nieuwe Website Toevoegen', 'aanbod-websites'),
+            'name'                  => _x('Aanbod', 'Post Type General Name', 'aanbod-websites'),
+            'singular_name'         => _x('Aanbod', 'Post Type Singular Name', 'aanbod-websites'),
+            'menu_name'             => __('Aanbod', 'aanbod-websites'),
+            'name_admin_bar'        => __('Aanbod', 'aanbod-websites'),
+            'archives'              => __('Aanbod Archief', 'aanbod-websites'),
+            'attributes'            => __('Aanbod Attributen', 'aanbod-websites'),
+            'parent_item_colon'     => __('Parent Aanbod:', 'aanbod-websites'),
+            'all_items'             => __('Alle Aanbod', 'aanbod-websites'),
+            'add_new_item'          => __('Nieuw Aanbod Toevoegen', 'aanbod-websites'),
             'add_new'               => __('Nieuwe Toevoegen', 'aanbod-websites'),
-            'new_item'              => __('Nieuwe Website', 'aanbod-websites'),
-            'edit_item'             => __('Website Bewerken', 'aanbod-websites'),
-            'update_item'           => __('Website Updaten', 'aanbod-websites'),
-            'view_item'             => __('Website Bekijken', 'aanbod-websites'),
-            'view_items'            => __('Websites Bekijken', 'aanbod-websites'),
-            'search_items'          => __('Website Zoeken', 'aanbod-websites'),
+            'new_item'              => __('Nieuw Aanbod', 'aanbod-websites'),
+            'edit_item'             => __('Aanbod Bewerken', 'aanbod-websites'),
+            'update_item'           => __('Aanbod Updaten', 'aanbod-websites'),
+            'view_item'             => __('Aanbod Bekijken', 'aanbod-websites'),
+            'view_items'            => __('Aanbod Bekijken', 'aanbod-websites'),
+            'search_items'          => __('Aanbod Zoeken', 'aanbod-websites'),
             'not_found'             => __('Niet Gevonden', 'aanbod-websites'),
             'not_found_in_trash'    => __('Niet Gevonden in Prullenbak', 'aanbod-websites'),
             'featured_image'        => __('Uitgelichte Afbeelding', 'aanbod-websites'),
             'set_featured_image'    => __('Uitgelichte Afbeelding Instellen', 'aanbod-websites'),
             'remove_featured_image' => __('Uitgelichte Afbeelding Verwijderen', 'aanbod-websites'),
             'use_featured_image'    => __('Gebruik als Uitgelichte Afbeelding', 'aanbod-websites'),
-            'insert_into_item'      => __('Invoegen in Website', 'aanbod-websites'),
-            'uploaded_to_this_item' => __('Geüpload naar deze Website', 'aanbod-websites'),
-            'items_list'            => __('Websites Lijst', 'aanbod-websites'),
-            'items_list_navigation' => __('Websites Lijst Navigatie', 'aanbod-websites'),
-            'filter_items_list'     => __('Filter Websites Lijst', 'aanbod-websites'),
+            'insert_into_item'      => __('Invoegen in Aanbod', 'aanbod-websites'),
+            'uploaded_to_this_item' => __('Geüpload naar dit Aanbod', 'aanbod-websites'),
+            'items_list'            => __('Aanbod Lijst', 'aanbod-websites'),
+            'items_list_navigation' => __('Aanbod Lijst Navigatie', 'aanbod-websites'),
+            'filter_items_list'     => __('Filter Aanbod Lijst', 'aanbod-websites'),
         ];
 
         $args = [
-            'label'                 => __('Website', 'aanbod-websites'),
-            'description'           => __('Websites aanbod', 'aanbod-websites'),
+            'label'                 => __('Aanbod', 'aanbod-websites'),
+            'description'           => __('Aanbod items', 'aanbod-websites'),
             'labels'                => $labels,
             'supports'              => ['title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'revisions'],
             'hierarchical'          => false,
@@ -109,7 +109,7 @@ class Aanbod_Websites {
             'publicly_queryable'    => true,
             'capability_type'       => 'post',
             'show_in_rest'          => true,
-            'rewrite'               => ['slug' => 'websites', 'with_front' => false],
+            'rewrite'               => ['slug' => 'aanbod', 'with_front' => false],
         ];
 
         register_post_type('website', $args);
@@ -159,17 +159,17 @@ class Aanbod_Websites {
     public function register_taxonomies() {
         // Categorie taxonomie
         $category_labels = [
-            'name'              => _x('Website Categorieën', 'taxonomy general name', 'aanbod-websites'),
-            'singular_name'     => _x('Categorie', 'taxonomy singular name', 'aanbod-websites'),
-            'search_items'      => __('Categorieën Zoeken', 'aanbod-websites'),
-            'all_items'         => __('Alle Categorieën', 'aanbod-websites'),
-            'parent_item'       => __('Parent Categorie', 'aanbod-websites'),
-            'parent_item_colon' => __('Parent Categorie:', 'aanbod-websites'),
-            'edit_item'         => __('Categorie Bewerken', 'aanbod-websites'),
-            'update_item'       => __('Categorie Updaten', 'aanbod-websites'),
-            'add_new_item'      => __('Nieuwe Categorie Toevoegen', 'aanbod-websites'),
-            'new_item_name'     => __('Nieuwe Categorie Naam', 'aanbod-websites'),
-            'menu_name'         => __('Categorieën', 'aanbod-websites'),
+            'name'              => _x('Branches', 'taxonomy general name', 'aanbod-websites'),
+            'singular_name'     => _x('Branche', 'taxonomy singular name', 'aanbod-websites'),
+            'search_items'      => __('Branches Zoeken', 'aanbod-websites'),
+            'all_items'         => __('Alle Branches', 'aanbod-websites'),
+            'parent_item'       => __('Parent Branche', 'aanbod-websites'),
+            'parent_item_colon' => __('Parent Branche:', 'aanbod-websites'),
+            'edit_item'         => __('Branche Bewerken', 'aanbod-websites'),
+            'update_item'       => __('Branche Updaten', 'aanbod-websites'),
+            'add_new_item'      => __('Nieuwe Branche Toevoegen', 'aanbod-websites'),
+            'new_item_name'     => __('Nieuwe Branche Naam', 'aanbod-websites'),
+            'menu_name'         => __('Branches', 'aanbod-websites'),
         ];
 
         $category_args = [
@@ -179,22 +179,22 @@ class Aanbod_Websites {
             'show_admin_column' => true,
             'query_var'         => true,
             'show_in_rest'      => true,
-            'rewrite'           => ['slug' => 'website-categorie'],
+            'rewrite'           => ['slug' => 'branche'],
         ];
 
         register_taxonomy('website_categorie', ['website'], $category_args);
 
         // Tags taxonomie
         $tag_labels = [
-            'name'              => _x('Website Tags', 'taxonomy general name', 'aanbod-websites'),
-            'singular_name'     => _x('Tag', 'taxonomy singular name', 'aanbod-websites'),
-            'search_items'      => __('Tags Zoeken', 'aanbod-websites'),
-            'all_items'         => __('Alle Tags', 'aanbod-websites'),
-            'edit_item'         => __('Tag Bewerken', 'aanbod-websites'),
-            'update_item'       => __('Tag Updaten', 'aanbod-websites'),
-            'add_new_item'      => __('Nieuwe Tag Toevoegen', 'aanbod-websites'),
-            'new_item_name'     => __('Nieuwe Tag Naam', 'aanbod-websites'),
-            'menu_name'         => __('Tags', 'aanbod-websites'),
+            'name'              => _x('Branche Tags', 'taxonomy general name', 'aanbod-websites'),
+            'singular_name'     => _x('Branche Tag', 'taxonomy singular name', 'aanbod-websites'),
+            'search_items'      => __('Branche Tags Zoeken', 'aanbod-websites'),
+            'all_items'         => __('Alle Branche Tags', 'aanbod-websites'),
+            'edit_item'         => __('Branche Tag Bewerken', 'aanbod-websites'),
+            'update_item'       => __('Branche Tag Updaten', 'aanbod-websites'),
+            'add_new_item'      => __('Nieuwe Branche Tag Toevoegen', 'aanbod-websites'),
+            'new_item_name'     => __('Nieuwe Branche Tag Naam', 'aanbod-websites'),
+            'menu_name'         => __('Branche Tags', 'aanbod-websites'),
         ];
 
         $tag_args = [
@@ -204,7 +204,7 @@ class Aanbod_Websites {
             'show_admin_column' => true,
             'query_var'         => true,
             'show_in_rest'      => true,
-            'rewrite'           => ['slug' => 'website-tag'],
+            'rewrite'           => ['slug' => 'branche-tag'],
         ];
 
         register_taxonomy('website_tag', ['website'], $tag_args);

@@ -1,16 +1,15 @@
 <?php
+
 /**
  * Website Taxonomies
- *
- * @package Aanbod_Websites
  */
 
 namespace Aanbod_Websites\Taxonomies;
 
 use Aanbod_Websites\PostTypes\Website_Post_Type;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (! defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -18,86 +17,84 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Registers taxonomies for the website post type.
  */
-class Website_Taxonomies {
+class Website_Taxonomies
+{
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        add_action('init', [$this, 'register']);
+    }
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		add_action( 'init', array( $this, 'register' ) );
-	}
+    /**
+     * Register taxonomies
+     */
+    public function register(): void
+    {
+        $this->register_category_taxonomy();
+        $this->register_tag_taxonomy();
+    }
 
-	/**
-	 * Register taxonomies
-	 *
-	 * @return void
-	 */
-	public function register(): void {
-		$this->register_category_taxonomy();
-		$this->register_tag_taxonomy();
-	}
+    /**
+     * Register category taxonomy
+     */
+    private function register_category_taxonomy(): void
+    {
+        $labels = [
+            'name' => _x('Branches', 'taxonomy general name', 'aanbod-websites'),
+            'singular_name' => _x('Branche', 'taxonomy singular name', 'aanbod-websites'),
+            'search_items' => __('Branches Zoeken', 'aanbod-websites'),
+            'all_items' => __('Alle Branches', 'aanbod-websites'),
+            'parent_item' => __('Parent Branche', 'aanbod-websites'),
+            'parent_item_colon' => __('Parent Branche:', 'aanbod-websites'),
+            'edit_item' => __('Branche Bewerken', 'aanbod-websites'),
+            'update_item' => __('Branche Updaten', 'aanbod-websites'),
+            'add_new_item' => __('Nieuwe Branche Toevoegen', 'aanbod-websites'),
+            'new_item_name' => __('Nieuwe Branche Naam', 'aanbod-websites'),
+            'menu_name' => __('Branches', 'aanbod-websites'),
+        ];
 
-	/**
-	 * Register category taxonomy
-	 *
-	 * @return void
-	 */
-	private function register_category_taxonomy(): void {
-		$labels = array(
-			'name'              => _x( 'Website Categorieën', 'taxonomy general name', 'aanbod-websites' ),
-			'singular_name'     => _x( 'Categorie', 'taxonomy singular name', 'aanbod-websites' ),
-			'search_items'      => __( 'Categorieën Zoeken', 'aanbod-websites' ),
-			'all_items'         => __( 'Alle Categorieën', 'aanbod-websites' ),
-			'parent_item'       => __( 'Parent Categorie', 'aanbod-websites' ),
-			'parent_item_colon' => __( 'Parent Categorie:', 'aanbod-websites' ),
-			'edit_item'         => __( 'Categorie Bewerken', 'aanbod-websites' ),
-			'update_item'       => __( 'Categorie Updaten', 'aanbod-websites' ),
-			'add_new_item'      => __( 'Nieuwe Categorie Toevoegen', 'aanbod-websites' ),
-			'new_item_name'     => __( 'Nieuwe Categorie Naam', 'aanbod-websites' ),
-			'menu_name'         => __( 'Categorieën', 'aanbod-websites' ),
-		);
+        $args = [
+            'hierarchical' => true,
+            'labels' => $labels,
+            'show_ui' => true,
+            'show_admin_column' => true,
+            'query_var' => true,
+            'show_in_rest' => true,
+            'rewrite' => ['slug' => 'branche'],
+        ];
 
-		$args = array(
-			'hierarchical'      => true,
-			'labels'            => $labels,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'query_var'         => true,
-			'show_in_rest'      => true,
-			'rewrite'           => array( 'slug' => 'website-categorie' ),
-		);
+        register_taxonomy('website_categorie', [Website_Post_Type::POST_TYPE], $args);
+    }
 
-		register_taxonomy( 'website_categorie', array( Website_Post_Type::POST_TYPE ), $args );
-	}
+    /**
+     * Register tag taxonomy
+     */
+    private function register_tag_taxonomy(): void
+    {
+        $labels = [
+            'name' => _x('Branche Tags', 'taxonomy general name', 'aanbod-websites'),
+            'singular_name' => _x('Branche Tag', 'taxonomy singular name', 'aanbod-websites'),
+            'search_items' => __('Branche Tags Zoeken', 'aanbod-websites'),
+            'all_items' => __('Alle Branche Tags', 'aanbod-websites'),
+            'edit_item' => __('Branche Tag Bewerken', 'aanbod-websites'),
+            'update_item' => __('Branche Tag Updaten', 'aanbod-websites'),
+            'add_new_item' => __('Nieuwe Branche Tag Toevoegen', 'aanbod-websites'),
+            'new_item_name' => __('Nieuwe Branche Tag Naam', 'aanbod-websites'),
+            'menu_name' => __('Branche Tags', 'aanbod-websites'),
+        ];
 
-	/**
-	 * Register tag taxonomy
-	 *
-	 * @return void
-	 */
-	private function register_tag_taxonomy(): void {
-		$labels = array(
-			'name'          => _x( 'Website Tags', 'taxonomy general name', 'aanbod-websites' ),
-			'singular_name' => _x( 'Tag', 'taxonomy singular name', 'aanbod-websites' ),
-			'search_items'  => __( 'Tags Zoeken', 'aanbod-websites' ),
-			'all_items'     => __( 'Alle Tags', 'aanbod-websites' ),
-			'edit_item'     => __( 'Tag Bewerken', 'aanbod-websites' ),
-			'update_item'   => __( 'Tag Updaten', 'aanbod-websites' ),
-			'add_new_item'  => __( 'Nieuwe Tag Toevoegen', 'aanbod-websites' ),
-			'new_item_name' => __( 'Nieuwe Tag Naam', 'aanbod-websites' ),
-			'menu_name'     => __( 'Tags', 'aanbod-websites' ),
-		);
+        $args = [
+            'hierarchical' => false,
+            'labels' => $labels,
+            'show_ui' => true,
+            'show_admin_column' => true,
+            'query_var' => true,
+            'show_in_rest' => true,
+            'rewrite' => ['slug' => 'branche-tag'],
+        ];
 
-		$args = array(
-			'hierarchical'      => false,
-			'labels'            => $labels,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'query_var'         => true,
-			'show_in_rest'      => true,
-			'rewrite'           => array( 'slug' => 'website-tag' ),
-		);
-
-		register_taxonomy( 'website_tag', array( Website_Post_Type::POST_TYPE ), $args );
-	}
+        register_taxonomy('website_tag', [Website_Post_Type::POST_TYPE], $args);
+    }
 }

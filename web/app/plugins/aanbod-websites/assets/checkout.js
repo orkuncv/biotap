@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    const basePrice = parseFloat($('#base-price').data('price')) || 0;
+    let selectedPackage = null;
     let selectedExtras = [];
 
     // Format price in Dutch format
@@ -9,9 +9,15 @@ jQuery(document).ready(function($) {
 
     // Update price summary
     function updatePriceSummary() {
-        let total = basePrice;
-        let extrasHtml = '';
+        let total = 0;
 
+        // Add package price if selected
+        if (selectedPackage) {
+            total += parseFloat(selectedPackage.price) || 0;
+        }
+
+        // Add extras
+        let extrasHtml = '';
         selectedExtras.forEach(function(extra) {
             const extraPrice = parseFloat(extra.price) || 0;
             total += extraPrice;
@@ -26,6 +32,30 @@ jQuery(document).ready(function($) {
         $('#selected-extras-summary').html(extrasHtml);
         $('#total-price').text(formatPrice(total));
     }
+
+    // Handle package selection
+    $('input[name="selected_package"]').on('change', function() {
+        const radio = $(this);
+        const packageName = radio.data('name');
+        const packagePrice = radio.data('price');
+
+        selectedPackage = {
+            index: radio.val(),
+            name: packageName,
+            price: packagePrice
+        };
+
+        // Update package display in summary
+        $('#package-name').text(packageName);
+        $('#package-price').text(formatPrice(parseFloat(packagePrice))).data('price', packagePrice);
+        $('#package-price-row').show();
+
+        // Add visual feedback
+        $('.package-option').removeClass('selected');
+        radio.closest('.package-option').addClass('selected');
+
+        updatePriceSummary();
+    });
 
     // Handle extra options checkbox change
     $('input[name="extras[]"]').on('change', function() {
@@ -53,6 +83,12 @@ jQuery(document).ready(function($) {
     $('#website-checkout-form').on('submit', function(e) {
         e.preventDefault();
 
+        // Check if package is selected
+        if (!selectedPackage) {
+            alert('Selecteer eerst een pakket om door te gaan.');
+            return;
+        }
+
         const form = $(this);
         const submitButton = form.find('.button-submit');
         const messagesContainer = $('#form-messages');
@@ -64,6 +100,9 @@ jQuery(document).ready(function($) {
         // Get form data
         const formData = form.serialize();
 
+        // Add selected package
+        let packageData = '&selected_package=' + selectedPackage.index;
+
         // Add selected extras to form data
         let extrasData = '';
         selectedExtras.forEach(function(extra) {
@@ -74,7 +113,7 @@ jQuery(document).ready(function($) {
         $.ajax({
             url: aanbodWebsites.ajaxUrl,
             type: 'POST',
-            data: formData + extrasData,
+            data: formData + packageData + extrasData,
             success: function(response) {
                 if (response.success) {
                     messagesContainer
@@ -84,7 +123,11 @@ jQuery(document).ready(function($) {
                     // Reset form
                     form[0].reset();
                     $('input[name="extras[]"]').prop('checked', false);
+                    $('input[name="selected_package"]').prop('checked', false);
+                    $('.package-option').removeClass('selected');
                     selectedExtras = [];
+                    selectedPackage = null;
+                    $('#package-price-row').hide();
                     updatePriceSummary();
 
                     // Scroll to message
@@ -108,6 +151,14 @@ jQuery(document).ready(function($) {
             }
         });
     });
+
+    // Auto-select pre-selected package if available
+    if (typeof aanbodWebsites.preselectedPackage !== 'undefined' && aanbodWebsites.preselectedPackage >= 0) {
+        const preselectedRadio = $('input[name="selected_package"][value="' + aanbodWebsites.preselectedPackage + '"]');
+        if (preselectedRadio.length) {
+            preselectedRadio.prop('checked', true).trigger('change');
+        }
+    }
 
     // Initialize price summary
     updatePriceSummary();
